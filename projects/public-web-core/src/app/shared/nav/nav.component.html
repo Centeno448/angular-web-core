@@ -1,17 +1,21 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row class="nav-container">
-    <span class="nav-title">Web Core</span>
-    <span class="divider"></span>
-    <button
-      mat-flat-button
-      [mat-menu-trigger-for]="menu"
-      class="nav-item"
-      color="accent"
-    >
-      Admin
-    </button>
-    <mat-menu #menu="matMenu" xPosition="after">
-      <button mat-menu-item>Users</button>
-    </mat-menu>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div class="container-flex">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="nav-container">
+      <span class="nav-title"><a routerLink="/">Web Core</a></span>
+      <span class="divider"></span>
+      <button
+        class="menu-item nav-item"
+        mat-flat-button
+        [mat-menu-trigger-for]="menu"
+        color="accent"
+      >
+        Admin
+      </button>
+      <mat-menu #menu="matMenu" xPosition="after">
+        <a class="menu-item" mat-menu-item routerLink="/user">
+          Users
+        </a>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

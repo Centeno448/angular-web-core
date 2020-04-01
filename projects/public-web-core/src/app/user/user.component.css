@@ -1,0 +1,21 @@
+.container-flex {
+  margin-top: 10px;
+  align-content: center;
+}
+
+.heading {
+  text-align: center;
+}
+
+.container-flex span {
+  font-size: xx-large;
+}
+
+.table-container {
+  overflow: auto;
+  height: 400px;
+}
+
+table {
+  width: 100%;
+}

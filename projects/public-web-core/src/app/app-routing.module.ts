@@ -1,7 +1,14 @@
+import { NotfoundComponent } from './shared/notfound/notfound.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'user', component: UserComponent },
+  { path: '**', component: NotfoundComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
