@@ -12,6 +12,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteConfirmationDialogComponent } from './shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,9 @@ import { MatTableModule } from '@angular/material/table';
     UserComponent,
     NavComponent,
     HomeComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    UserEditComponent,
+    DeleteConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +35,12 @@ import { MatTableModule } from '@angular/material/table';
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
+  entryComponents: [DeleteConfirmationDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
