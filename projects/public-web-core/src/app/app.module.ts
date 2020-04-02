@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './user/add-user/add-user.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AddUserComponent } from './user/add-user/add-user.component';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   entryComponents: [DeleteConfirmationDialogComponent],
   providers: [],
