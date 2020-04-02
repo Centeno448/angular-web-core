@@ -17,6 +17,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from './shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DeleteConfirmationDialogComponent } from './shared/dialogs/delete-confi
     MatTableModule,
     MatIconModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [DeleteConfirmationDialogComponent],
   providers: [],
