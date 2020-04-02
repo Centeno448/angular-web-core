@@ -1,8 +1,10 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { User } from './user.model';
+import { ServerError } from '../shared/server-error.model';
+import { error } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,11 @@ import { User } from './user.model';
 export class UserService {
   users = new Subject<User[]>();
 
+  user = new Subject<User>();
+
   usersUpdated = new Subject<boolean>();
+
+  errorOcurred = new Subject<ServerError>();
 
   private baseUrl = environment.baseUrl + 'users';
 
@@ -26,7 +32,7 @@ export class UserService {
           this.users.next(users);
         },
         error => {
-          console.log('get error' + error);
+          this.errorOcurred.next(error.error);
         }
       );
   }
@@ -41,7 +47,52 @@ export class UserService {
           this.usersUpdated.next(true);
         },
         error => {
-          console.log('delete error' + error);
+          this.errorOcurred.next(error.error);
+        }
+      );
+  }
+
+  updateUser(id: number, user: User) {
+    this.http
+      .patch(this.baseUrl + '/' + id, user, {
+        headers: { Auth: environment.apiKey }
+      })
+      .subscribe(
+        response => {
+          this.usersUpdated.next(true);
+        },
+        error => {
+          this.errorOcurred.next(error.error);
+        }
+      );
+  }
+
+  addUser(user: User) {
+    this.http
+      .post(this.baseUrl, user, {
+        headers: { Auth: environment.apiKey }
+      })
+      .subscribe(
+        res => {
+          this.usersUpdated.next(true);
+        },
+        error => {
+          this.errorOcurred.next(error.error);
+        }
+      );
+  }
+
+  getUser(id: number) {
+    this.http
+      .get<User>(this.baseUrl + '/' + id, {
+        headers: { Auth: environment.apiKey }
+      })
+      .subscribe(
+        user => {
+          this.user.next(user);
+        },
+        error => {
+          this.errorOcurred.next(error);
         }
       );
   }

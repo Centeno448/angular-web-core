@@ -4,6 +4,7 @@ import { DeleteConfirmationDialogComponent } from '../shared/dialogs/delete-conf
 import { Subscription } from 'rxjs';
 import { UserService } from './user.service';
 import { User } from './user.model';
+import { ServerError } from '../shared/server-error.model';
 
 @Component({
   selector: 'app-user',
@@ -13,15 +14,15 @@ import { User } from './user.model';
 export class UserComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, private userService: UserService) {}
 
-  dataSource: User[] = [];
-  isLoadingResults: boolean;
   private userSub: Subscription;
-
   private userChangeSub: Subscription;
-
-  displayedColumns = ['id', 'username', 'email', 'password', 'actions'];
-
   private dialogSub: Subscription;
+  private userErrorSub: Subscription;
+
+  isLoadingResults: boolean;
+  errorMessage: string = '';
+  dataSource: User[] = [];
+  displayedColumns = ['id', 'username', 'email', 'password', 'actions'];
 
   ngOnInit(): void {
     this.userSub = this.userService.users.subscribe(user => {
@@ -35,8 +36,11 @@ export class UserComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.isLoadingResults = true;
+    this.userErrorSub = this.userService.errorOcurred.subscribe(error => {
+      this.handleError(error);
+    });
 
+    this.isLoadingResults = true;
     this.userService.getAllUsers();
   }
 
@@ -62,6 +66,19 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.deleteUser(id);
   }
 
+  handleError(error: ServerError) {
+    this.isLoadingResults = false;
+    switch (error.statusCode) {
+      case 500:
+        this.errorMessage = 'Ocurrió un error al obtener los usuarios';
+        break;
+
+      default:
+        this.errorMessage = error.message;
+        break;
+    }
+  }
+
   ngOnDestroy() {
     if (this.dialogSub) {
       this.dialogSub.unsubscribe();
@@ -73,6 +90,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
     if (this.userChangeSub) {
       this.userChangeSub.unsubscribe();
+    }
+
+    if (this.userErrorSub) {
+      this.userErrorSub.unsubscribe();
     }
   }
 }

@@ -19,6 +19,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from './shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddUserComponent } from './user/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeComponent,
     NotfoundComponent,
     UserEditComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatDialogModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   entryComponents: [DeleteConfirmationDialogComponent],
   providers: [],
