@@ -28,7 +28,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.initForm();
 
     this.userSub = this.userService.user.subscribe(user => {
-      console.log('a');
       this.setFormValues(user);
     });
 
@@ -36,7 +35,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.editUserForm.value);
     this.userService.updateUser(this.editedId, this.editUserForm.value);
     this.router.navigate(['../../'], { relativeTo: this.route });
   }

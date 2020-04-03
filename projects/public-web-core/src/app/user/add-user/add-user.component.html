@@ -38,6 +38,22 @@
             </mat-form-field>
             <br />
             <mat-form-field class="full-width input-gutters">
+              <mat-label>Correo</mat-label>
+              <input matInput formControlName="email" />
+              <mat-error
+                *ngIf="
+                  addUserForm.get('email').hasError('email') &&
+                  !addUserForm.get('email').hasError('required')
+                "
+              >
+                Ingrese un correo válido
+              </mat-error>
+              <mat-error *ngIf="addUserForm.get('email').hasError('required')">
+                El correo es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
               <mat-label>Clave</mat-label>
               <input matInput formControlName="password" />
               <mat-error
@@ -52,22 +68,6 @@
                 *ngIf="addUserForm.get('password').hasError('required')"
               >
                 La clave es <strong>obligatoria</strong>
-              </mat-error>
-            </mat-form-field>
-            <br />
-            <mat-form-field class="full-width input-gutters">
-              <mat-label>Correo</mat-label>
-              <input matInput formControlName="email" />
-              <mat-error
-                *ngIf="
-                  addUserForm.get('email').hasError('email') &&
-                  !addUserForm.get('email').hasError('required')
-                "
-              >
-                Ingrese un correo válido
-              </mat-error>
-              <mat-error *ngIf="addUserForm.get('email').hasError('required')">
-                El correo es <strong>obligatorio</strong>
               </mat-error>
             </mat-form-field>
             <div class="buttons-container">
