@@ -14,7 +14,6 @@ import { AddUserComponent } from './add-user/add-user.component';
     ReactiveFormsModule,
     UserRoutingModule
   ],
-  declarations: [UserComponent, UserEditComponent, AddUserComponent],
-  exports: [UserComponent, UserEditComponent, AddUserComponent]
+  declarations: [UserComponent, UserEditComponent, AddUserComponent]
 })
 export class UserModule {}

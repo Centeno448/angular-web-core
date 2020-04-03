@@ -9,7 +9,7 @@ import { relative } from 'path';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+  styleUrls: ['./user-edit.component.css'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
   editedId: number;
@@ -27,7 +27,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
     this.initForm();
 
-    this.userSub = this.userService.user.subscribe(user => {
+    this.userSub = this.userService.user.subscribe((user) => {
       this.setFormValues(user);
     });
 
@@ -35,6 +35,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (!this.editUserForm.valid) {
+      return;
+    }
     this.userService.updateUser(this.editedId, this.editUserForm.value);
     this.router.navigate(['../../'], { relativeTo: this.route });
   }
@@ -46,12 +49,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
       username: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(6)
+        Validators.maxLength(6),
       ]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6)
-      ])
+        Validators.minLength(6),
+      ]),
     });
   }
 
@@ -59,7 +62,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.editUserForm.patchValue({
       username: user.username,
       password: user.password,
-      email: user.email
+      email: user.email,
     });
   }
 
