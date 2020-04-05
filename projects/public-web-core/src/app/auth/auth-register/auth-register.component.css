@@ -1,0 +1,51 @@
+.container-flex {
+  margin-top: 10px;
+  align-content: center;
+}
+
+.heading {
+  text-align: center;
+}
+
+.mode {
+  text-transform: capitalize;
+}
+
+.container-flex .heading {
+  font-size: xx-large;
+}
+
+form {
+  padding: 20px 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.input-gutters {
+  padding: 0 15px;
+  margin-top: 10px;
+}
+
+input {
+  font-size: medium;
+}
+
+form .button-container {
+  text-align: center;
+}
+
+.no-focus:focus {
+  outline: none;
+}
+
+.register-link {
+  color: #007bff;
+}
+
+.register-link:hover {
+  color: #0068d6;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,117 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading">
+      <span>Angular Web Core - Register </span>
+    </div>
+  </div>
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-4">
+      <div class="general-container mat-elevation-z8">
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+          <div class="example-container">
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Nombre de Usuario</mat-label>
+              <input
+                matInput
+                [(ngModel)]="model.username"
+                name="model.username"
+                required
+                minlength="4"
+                maxlength="100"
+                #username="ngModel"
+              />
+
+              <mat-error *ngIf="username.errors?.required">
+                El nombre de usuario es <strong>obligatorio</strong>
+              </mat-error>
+              <mat-error *ngIf="username.errors?.minlength">
+                El nombre de usuario debe ser de <strong>mínimo</strong> 4
+                caracteres
+              </mat-error>
+              <mat-error *ngIf="username.errors?.maxlength">
+                El nombre de usuario debe ser de <strong>máximo</strong> 100
+                caracteres
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Correo Electrónico</mat-label>
+              <input
+                matInput
+                [(ngModel)]="model.email"
+                name="model.email"
+                required
+                email
+                type="email"
+                #email="ngModel"
+              />
+              <mat-error *ngIf="email.errors?.required">
+                El correo es <strong>obligatorio</strong>
+              </mat-error>
+              <mat-error *ngIf="email.errors?.email">
+                Ingrese un correo válido
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Contraseña</mat-label>
+              <input
+                type="password"
+                matInput
+                [(ngModel)]="model.password"
+                name="model.password"
+                required
+                minlength="4"
+                #password="ngModel"
+                (keyup)="checkPasswords(password, verify)"
+              />
+              <mat-error *ngIf="password.errors?.required">
+                La clave es <strong>obligatoria</strong>
+              </mat-error>
+              <mat-error *ngIf="password.errors?.minlength">
+                La clave debe de ser <strong>mínimo</strong> 4 caracteres
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Verificar Contraseña</mat-label>
+              <input
+                type="password"
+                matInput
+                required
+                name="model.verify"
+                [(ngModel)]="model.verify"
+                #verify="ngModel"
+                (keyup)="checkPasswords(password, verify)"
+              />
+              <mat-error *ngIf="verify.errors?.required">
+                Confirme la clave
+              </mat-error>
+              <mat-error *ngIf="verify.errors?.mustMatch">
+                Las claves deben coincidir
+              </mat-error>
+            </mat-form-field>
+            <div class="button-container">
+              <button
+                class="no-focus"
+                type="submit"
+                mat-raised-button
+                color="primary"
+              >
+                Registrar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <p>
+      Ya tienes cuenta?
+      <a routerLink="/auth/login">Loggeate</a>
+    </p>
+  </div>
+</div>

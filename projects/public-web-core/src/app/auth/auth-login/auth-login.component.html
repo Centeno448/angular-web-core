@@ -1,0 +1,63 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading">
+      <span>Angular Web Core - Login </span>
+    </div>
+  </div>
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-4">
+      <div class="general-container mat-elevation-z8">
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+          <div class="example-container">
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Nombre de Usuario</mat-label>
+              <input
+                matInput
+                [(ngModel)]="model.username"
+                name="model.username"
+                required
+                #lusername="ngModel"
+              />
+              <mat-error *ngIf="!lusername.valid">
+                Ingrese un nombre de usuario
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Contraseña</mat-label>
+              <input
+                type="password"
+                matInput
+                [(ngModel)]="model.password"
+                name="model.password"
+                required
+                #lpassword="ngModel"
+              />
+              <mat-error *ngIf="!lpassword.valid">
+                Ingrese la clave
+              </mat-error>
+            </mat-form-field>
+            <div class="button-container">
+              <button
+                class="no-focus"
+                type="submit"
+                mat-raised-button
+                color="primary"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row justify-content-center">
+    <p>
+      No tienes cuenta?
+      <a routerLink="/auth/register">Registrate</a>
+    </p>
+  </div>
+</div>
