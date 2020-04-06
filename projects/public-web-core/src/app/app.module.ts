@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthEffects } from './auth/store/auth.effects';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserModule } from './user/user.module';
 import { StoreModule } from '@ngrx/store';
 
@@ -30,6 +31,9 @@ import * as FromRoot from './store/app.reducer';
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
     EffectsModule.forRoot([AuthEffects])
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
