@@ -1,23 +1,35 @@
-import { ServerError } from './../../shared/server-error.model';
+import { Subscription } from 'rxjs';
 import { AuthRegisterModel } from './auth-register.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-auth-register',
   templateUrl: './auth-register.component.html',
   styleUrls: ['./auth-register.component.css']
 })
-export class AuthRegisterComponent implements OnInit {
-  model = new AuthRegisterModel('', '', '', '');
+export class AuthRegisterComponent implements OnInit, OnDestroy {
+  model = new AuthRegisterModel('', '', '', '', '');
+  errorMessage = null;
+  isLoading = false;
 
-  constructor() {}
+  private storeSub: Subscription;
 
-  ngOnInit(): void {}
+  constructor(private store: Store<fromApp.AppState>) {}
+
+  ngOnInit(): void {
+    this.storeSub = this.store.select('auth').subscribe((authState) => {
+      (this.isLoading = authState.isLoading),
+        (this.errorMessage = authState.authError);
+    });
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log(form.value);
+      this.store.dispatch(new AuthActions.RegisterStart(form.value));
     }
   }
 
@@ -26,6 +38,12 @@ export class AuthRegisterComponent implements OnInit {
       verify.control.setErrors({ mustMatch: true });
     } else {
       verify.control.setErrors(null);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
     }
   }
 }

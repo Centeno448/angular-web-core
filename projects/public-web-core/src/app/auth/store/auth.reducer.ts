@@ -1,4 +1,3 @@
-import { createReducer, on, Action } from '@ngrx/store';
 import { User } from '../user.model';
 import * as AuthActions from './auth.actions';
 
@@ -14,39 +13,56 @@ const initialState: State = {
   isLoading: false
 };
 
-const authReducer = createReducer(
-  initialState,
-  on(AuthActions.register, AuthActions.login, (state) => ({
-    ...state,
-    isLoading: false,
-    authError: null
-  })),
-  on(AuthActions.authSuccess, (state, { payload }) => ({
-    ...state,
-    user: new User(
-      payload.id,
-      payload.username,
-      payload.accessToken,
-      payload.tokenExpirationDate,
-      payload.refreshToken
-    ),
-    isLoading: false,
-    authError: null
-  })),
-  on(AuthActions.logout, (state) => ({
-    ...state,
-    user: null
-  })),
-  on(AuthActions.authFail, (state, { payload }) => ({
-    ...state,
-    authError: payload
-  })),
-  on(AuthActions.clearError, (state) => ({
-    ...state,
-    authError: null
-  }))
-);
+export function authReducer(
+  state = initialState,
+  action: AuthActions.AuthActions
+) {
+  switch (action.type) {
+    case AuthActions.AUTH_SUCCESS:
+      const user = new User(
+        action.payload.id,
+        action.payload.username,
+        action.payload.accessToken,
+        action.payload.tokenExpirationDate,
+        action.payload.refreshToken
+      );
 
-export function reducer(state: State | undefined, action: Action) {
-  return authReducer(state, action);
+      return {
+        ...state,
+        authError: null,
+        isLoading: false,
+        user: user
+      };
+
+    case AuthActions.LOGOUT_START:
+      return {
+        ...state,
+        user: null
+      };
+
+    case AuthActions.LOGIN_START:
+    case AuthActions.REGISTER_START:
+      return {
+        ...state,
+        isLoading: true,
+        authError: null
+      };
+
+    case AuthActions.AUTH_FAIL:
+      return {
+        ...state,
+        user: null,
+        isLoading: false,
+        authError: action.payload
+      };
+
+    case AuthActions.CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null
+      };
+
+    default:
+      return state;
+  }
 }

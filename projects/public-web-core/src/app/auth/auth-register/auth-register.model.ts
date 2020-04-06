@@ -3,6 +3,7 @@ export class AuthRegisterModel {
     public username: string,
     public email: string,
     public password: string,
-    public verify: string
+    public verify: string,
+    public role: string
   ) {}
 }

@@ -7,8 +7,8 @@
   text-align: center;
 }
 
-.mode {
-  text-transform: capitalize;
+.error-container {
+  text-align: center;
 }
 
 .container-flex .heading {

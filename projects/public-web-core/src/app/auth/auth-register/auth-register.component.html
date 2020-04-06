@@ -5,6 +5,11 @@
     </div>
   </div>
   <br />
+  <div class="row no-gutters justify-content-center" *ngIf="errorMessage">
+    <div class="col-lg-3 alert alert-danger error-container">
+      {{ errorMessage }}
+    </div>
+  </div>
   <div class="row no-gutters justify-content-center">
     <div class="col-lg-4">
       <div class="general-container mat-elevation-z8">
@@ -15,7 +20,7 @@
               <input
                 matInput
                 [(ngModel)]="model.username"
-                name="model.username"
+                name="username"
                 required
                 minlength="4"
                 maxlength="100"
@@ -40,7 +45,7 @@
               <input
                 matInput
                 [(ngModel)]="model.email"
-                name="model.email"
+                name="email"
                 required
                 email
                 type="email"
@@ -60,9 +65,9 @@
                 type="password"
                 matInput
                 [(ngModel)]="model.password"
-                name="model.password"
+                name="password"
                 required
-                minlength="4"
+                minlength="6"
                 #password="ngModel"
                 (keyup)="checkPasswords(password, verify)"
               />
@@ -70,7 +75,7 @@
                 La clave es <strong>obligatoria</strong>
               </mat-error>
               <mat-error *ngIf="password.errors?.minlength">
-                La clave debe de ser <strong>mínimo</strong> 4 caracteres
+                La clave debe de ser <strong>mínimo</strong> 6 caracteres
               </mat-error>
             </mat-form-field>
 
@@ -80,7 +85,7 @@
                 type="password"
                 matInput
                 required
-                name="model.verify"
+                name="verify"
                 [(ngModel)]="model.verify"
                 #verify="ngModel"
                 (keyup)="checkPasswords(password, verify)"

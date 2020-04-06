@@ -5,6 +5,11 @@
     </div>
   </div>
   <br />
+  <div class="row no-gutters justify-content-center" *ngIf="errorMessage">
+    <div class="col-lg-3 alert alert-danger error-container">
+      {{ errorMessage }}
+    </div>
+  </div>
   <div class="row no-gutters justify-content-center">
     <div class="col-lg-4">
       <div class="general-container mat-elevation-z8">
@@ -15,7 +20,7 @@
               <input
                 matInput
                 [(ngModel)]="model.username"
-                name="model.username"
+                name="username"
                 required
                 #lusername="ngModel"
               />
@@ -30,7 +35,7 @@
                 type="password"
                 matInput
                 [(ngModel)]="model.password"
-                name="model.password"
+                name="password"
                 required
                 #lpassword="ngModel"
               />
@@ -54,7 +59,7 @@
     </div>
   </div>
   <br />
-  <div class="row justify-content-center">
+  <div class="row no-gutters justify-content-center">
     <p>
       No tienes cuenta?
       <a routerLink="/auth/register">Registrate</a>

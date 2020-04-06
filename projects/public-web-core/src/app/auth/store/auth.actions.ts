@@ -1,51 +1,60 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, props, Action } from '@ngrx/store';
 
-export const register = createAction(
-  '[Auth] register',
-  props<{
-    payload: {
-      username: string;
-      email: string;
-      password: string;
-    };
-  }>()
-);
+export const REGISTER_START = '[Auth] Register Start';
+export const LOGIN_START = '[Auth] Login Start';
+export const LOGOUT_START = '[Auth] Logout Start';
+export const AUTH_SUCCESS = '[Auth] Auth Success';
+export const AUTH_FAIL = '[Auth] Auth Fail';
+export const CLEAR_ERROR = '[Auth] Clear Error';
 
-export const login = createAction(
-  '[Auth] Login',
-  props<{
-    payload: {
-      username: string;
-      password: string;
-    };
-  }>()
-);
+export class RegisterStart implements Action {
+  readonly type = REGISTER_START;
 
-export const authSuccess = createAction(
-  '[Auth] Auth Success',
-  props<{
-    payload: {
+  constructor(
+    public payload: { username: string; email: string; password: string }
+  ) {}
+}
+
+export class LoginStart implements Action {
+  readonly type = LOGIN_START;
+
+  constructor(public payload: { username: string; password: string }) {}
+}
+
+export class AuthSuccess implements Action {
+  readonly type = AUTH_SUCCESS;
+
+  constructor(
+    public payload: {
       id: number;
       username: string;
       accessToken: string;
       refreshToken: string;
       tokenExpirationDate: Date;
-    };
-  }>()
-);
+    }
+  ) {}
+}
 
-export const logout = createAction(
-  '[Auth] Logout',
-  props<{
-    payload: {
-      refreshToken: string;
-    };
-  }>()
-);
+export class LogoutStart implements Action {
+  readonly type = LOGOUT_START;
 
-export const authFail = createAction(
-  '[Auth] Auth Fail',
-  props<{ payload: string }>()
-);
+  constructor(public payload: string) {}
+}
 
-export const clearError = createAction('[Auth] Clear Error');
+export class AuthFail implements Action {
+  readonly type = AUTH_FAIL;
+
+  constructor(public payload: string) {}
+}
+
+export class ClearError implements Action {
+  readonly type = CLEAR_ERROR;
+}
+
+export type AuthActions =
+  | RegisterStart
+  | LoginStart
+  | AuthSuccess
+  | LogoutStart
+  | AuthFail
+  | ClearError;
