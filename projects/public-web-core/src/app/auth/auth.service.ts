@@ -23,4 +23,8 @@ export class AuthService {
       headers: { Auth: environment.apiKey }
     });
   }
+
+  logout(token: string) {
+    return this.http.post(this.baseUrl + 'logout', { token });
+  }
 }

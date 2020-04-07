@@ -136,6 +136,27 @@ export class AuthEffects {
     })
   );
 
+  @Effect()
+  logoutStart = this.actions$.pipe(
+    ofType(AuthActions.LOGOUT_START),
+    switchMap((logoutAction: AuthActions.LogoutStart) => {
+      return this.authService.logout(logoutAction.payload).pipe(
+        map((res) => {
+          return new AuthActions.LogoutEnd();
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  logoutEnd = this.actions$.pipe(
+    ofType(AuthActions.LOGOUT_END),
+    tap((action: AuthActions.LogoutEnd) => {
+      localStorage.removeItem('userData');
+      this.router.navigate(['/auth/login']);
+    })
+  );
+
   constructor(
     private actions$: Actions,
     private router: Router,

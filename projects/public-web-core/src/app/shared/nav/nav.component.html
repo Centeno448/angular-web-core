@@ -4,6 +4,7 @@
       <span class="nav-title"><a routerLink="/">Web Core</a></span>
       <span class="divider"></span>
       <button
+        *ngIf="user"
         class="menu-item nav-item"
         mat-flat-button
         [mat-menu-trigger-for]="menu"
@@ -16,6 +17,16 @@
           Usuarios
         </a>
       </mat-menu>
+      <span class="fill-space"></span>
+      <button
+        *ngIf="!!user"
+        class="nav-item"
+        mat-flat-button
+        color="warn"
+        (click)="logout()"
+      >
+        Logout
+      </button>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

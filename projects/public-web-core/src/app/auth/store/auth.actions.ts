@@ -3,6 +3,7 @@ import { createAction, props, Action } from '@ngrx/store';
 export const REGISTER_START = '[Auth] Register Start';
 export const LOGIN_START = '[Auth] Login Start';
 export const LOGOUT_START = '[Auth] Logout Start';
+export const LOGOUT_END = '[Auth] Logout End';
 export const AUTH_SUCCESS = '[Auth] Auth Success';
 export const AUTH_FAIL = '[Auth] Auth Fail';
 export const CLEAR_ERROR = '[Auth] Clear Error';
@@ -41,6 +42,10 @@ export class LogoutStart implements Action {
   constructor(public payload: string) {}
 }
 
+export class LogoutEnd implements Action {
+  readonly type = LOGOUT_END;
+}
+
 export class AuthFail implements Action {
   readonly type = AUTH_FAIL;
 
@@ -57,4 +62,5 @@ export type AuthActions =
   | AuthSuccess
   | LogoutStart
   | AuthFail
-  | ClearError;
+  | ClearError
+  | LogoutEnd;
