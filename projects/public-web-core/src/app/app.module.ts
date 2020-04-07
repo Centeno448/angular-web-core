@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserModule } from './user/user.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -27,7 +26,6 @@ import * as FromRoot from './store/app.reducer';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    UserModule,
     SharedModule,
     AuthModule,
     BookModule,
