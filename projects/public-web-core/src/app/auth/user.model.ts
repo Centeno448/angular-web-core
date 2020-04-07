@@ -18,4 +18,8 @@ export class User {
   get refreshToken() {
     return this._refreshToken;
   }
+
+  get tokenExpirationDate() {
+    return this._tokenExpirationDate;
+  }
 }

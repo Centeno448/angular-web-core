@@ -71,7 +71,8 @@ const handleAuth = (
     username,
     accessToken,
     refreshToken,
-    tokenExpirationDate: expirationDate
+    tokenExpirationDate: expirationDate,
+    redirect: true
   });
 };
 
@@ -131,8 +132,10 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   redirect = this.actions$.pipe(
     ofType(AuthActions.AUTH_SUCCESS),
-    tap(() => {
-      this.router.navigate(['/']);
+    tap((action: AuthActions.AuthSuccess) => {
+      if (action.payload.redirect) {
+        this.router.navigate(['/']);
+      }
     })
   );
 
@@ -154,6 +157,41 @@ export class AuthEffects {
     tap((action: AuthActions.LogoutEnd) => {
       localStorage.removeItem('userData');
       this.router.navigate(['/auth/login']);
+    })
+  );
+
+  @Effect()
+  autoLogin = this.actions$.pipe(
+    ofType(AuthActions.AUTO_LOGIN),
+    map(() => {
+      const userData: {
+        id: number;
+        username: string;
+        _accesstoken: string;
+        _tokenExpirationDate: Date;
+        _refreshToken: string;
+      } = JSON.parse(localStorage.getItem('userData'));
+
+      if (!userData) {
+        return { type: 'NONE' };
+      }
+
+      if (
+        new Date(userData._tokenExpirationDate).getTime() -
+          new Date().getTime() <=
+        0
+      ) {
+        return { type: 'NONE' };
+      }
+
+      return new AuthActions.AuthSuccess({
+        id: userData.id,
+        username: userData.username,
+        accessToken: userData._accesstoken,
+        refreshToken: userData._refreshToken,
+        tokenExpirationDate: userData._tokenExpirationDate,
+        redirect: false
+      });
     })
   );
 

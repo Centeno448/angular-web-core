@@ -1,7 +1,8 @@
-import { createAction, props, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 export const REGISTER_START = '[Auth] Register Start';
 export const LOGIN_START = '[Auth] Login Start';
+export const AUTO_LOGIN = '[Auth] Auto Login';
 export const LOGOUT_START = '[Auth] Logout Start';
 export const LOGOUT_END = '[Auth] Logout End';
 export const AUTH_SUCCESS = '[Auth] Auth Success';
@@ -22,6 +23,10 @@ export class LoginStart implements Action {
   constructor(public payload: { username: string; password: string }) {}
 }
 
+export class AutoLogin implements Action {
+  readonly type = AUTO_LOGIN;
+}
+
 export class AuthSuccess implements Action {
   readonly type = AUTH_SUCCESS;
 
@@ -32,6 +37,7 @@ export class AuthSuccess implements Action {
       accessToken: string;
       refreshToken: string;
       tokenExpirationDate: Date;
+      redirect: boolean;
     }
   ) {}
 }
@@ -59,6 +65,7 @@ export class ClearError implements Action {
 export type AuthActions =
   | RegisterStart
   | LoginStart
+  | AutoLogin
   | AuthSuccess
   | LogoutStart
   | AuthFail
