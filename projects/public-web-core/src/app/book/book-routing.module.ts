@@ -1,3 +1,4 @@
+import { BookResolver } from './book-resolver.service';
 import { BookAddComponent } from './book-add/book-add.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { BookComponent } from './book/book.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   {
     path: 'book/edit/:id',
     component: BookEditComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: [BookResolver]
   },
   { path: 'book/add', component: BookAddComponent, canActivate: [AuthGuard] }
 ];

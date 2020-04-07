@@ -1,4 +1,10 @@
+import { Book } from './../book.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as fromApp from '../../store/app.reducer';
+import * as BookActions from '../store/book.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-book-add',
@@ -6,10 +12,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./book-add.component.css']
 })
 export class BookAddComponent implements OnInit {
+  bookForm: FormGroup;
 
-  constructor() { }
+  constructor(
+    private store: Store<fromApp.AppState>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.initForm();
   }
 
+  initForm() {
+    this.bookForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(200)
+      ]),
+      author: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50)
+      ]),
+      publicationDate: new FormControl('', [Validators.required])
+    });
+  }
+
+  onCancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  onSubmit() {
+    if (!this.bookForm.valid) {
+      return;
+    }
+
+    const book = new Book(
+      null,
+      this.bookForm.get('name').value,
+      this.bookForm.get('author').value,
+      new Date(this.bookForm.get('publicationDate').value._d)
+    );
+
+    this.store.dispatch(new BookActions.AddBook(book));
+  }
 }

@@ -1,0 +1,46 @@
+.container-flex {
+  margin-top: 10px;
+  align-content: center;
+}
+
+.heading {
+  text-align: center;
+}
+
+.container-flex .heading {
+  font-size: xx-large;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.input-gutters {
+  padding: 0 15px;
+  margin-top: 10px;
+}
+
+.input-gutters:first-of-type {
+  margin-top: 20px;
+}
+
+.buttons-container {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.buttons-container button {
+  margin: 0 10px;
+}
+
+input {
+  font-size: medium;
+}
+
+div.mat-form-field-wrapper {
+  padding-bottom: 1.15em;
+}
+
+.no-focus:focus {
+  outline: none;
+}

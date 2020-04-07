@@ -11,6 +11,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [CommonModule],
@@ -25,7 +29,11 @@ import { MatCardModule } from '@angular/material/card';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
-  ]
+    MatCardModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatMomentDateModule
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es_EC' }]
 })
 export class MaterialModule {}

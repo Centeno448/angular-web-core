@@ -1,3 +1,4 @@
+import { BookEffects } from './book/store/book.effects';
 import { BookModule } from './book/book.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthEffects } from './auth/store/auth.effects';
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserModule } from './user/user.module';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import * as FromRoot from './store/app.reducer';
 
@@ -32,7 +34,8 @@ import * as FromRoot from './store/app.reducer';
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, BookEffects]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

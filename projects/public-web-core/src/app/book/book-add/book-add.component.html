@@ -1,1 +1,90 @@
-<p>book-add works!</p>
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading"><span>Agregar Libro</span></div>
+  </div>
+
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-5">
+      <div class="general-container mat-elevation-z8">
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+          <div class="example-container">
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Nombre del libro</mat-label>
+              <input matInput formControlName="name" />
+              <mat-error
+                *ngIf="
+                  bookForm.get('name').hasError('maxlength') &&
+                  !bookForm.get('name').hasError('required')
+                "
+              >
+                El nombre del libro debe tener <strong>máximo</strong> 100
+                caracteres
+              </mat-error>
+              <mat-error *ngIf="bookForm.get('name').hasError('required')">
+                El nombre del libro es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Autor</mat-label>
+              <input matInput formControlName="author" />
+              <mat-error
+                *ngIf="
+                  bookForm.get('author').hasError('maxlength') &&
+                  !bookForm.get('author').hasError('required')
+                "
+              >
+                El nombre del autor debe tener <strong>máximo</strong> 50
+                caracteres
+              </mat-error>
+              <mat-error *ngIf="bookForm.get('author').hasError('required')">
+                El nombre del autor es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Fecha Publicaci&oacute;n</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="publicationDate"
+                autocomplete="off"
+                (focus)="picker.open()"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+              <mat-error
+                *ngIf="bookForm.get('publicationDate').hasError('required')"
+              >
+                La fecha de publicaci&oacute;n es <strong>obligatoria</strong>
+              </mat-error>
+            </mat-form-field>
+            <div class="buttons-container">
+              <button
+                type="button"
+                mat-raised-button
+                color="warn"
+                (click)="onCancel()"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="!bookForm.valid"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
