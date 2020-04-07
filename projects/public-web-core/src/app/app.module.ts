@@ -1,3 +1,4 @@
+import { BookModule } from './book/book.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthEffects } from './auth/store/auth.effects';
 import { AuthModule } from './auth/auth.module';
@@ -27,6 +28,7 @@ import * as FromRoot from './store/app.reducer';
     UserModule,
     SharedModule,
     AuthModule,
+    BookModule,
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
