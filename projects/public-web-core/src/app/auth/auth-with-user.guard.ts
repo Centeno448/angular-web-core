@@ -14,7 +14,7 @@ import { take, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthWithUserGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -31,8 +31,8 @@ export class AuthGuard implements CanActivate {
       map((user) => {
         const authenticated = !!user;
 
-        if (!authenticated) {
-          return this.router.createUrlTree(['/auth/login']);
+        if (authenticated) {
+          return this.router.createUrlTree(['/home']);
         }
 
         return true;
