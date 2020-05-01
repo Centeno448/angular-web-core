@@ -1,3 +1,4 @@
+import { BookCategoryEffects } from './book-category/store/book-category.effects';
 import { BookEffects } from './book/store/book.effects';
 import { BookModule } from './book/book.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -19,6 +20,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import * as FromRoot from './store/app.reducer';
+import { BookCategoryModule } from './book-category/book-category.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotfoundComponent],
@@ -29,10 +31,11 @@ import * as FromRoot from './store/app.reducer';
     SharedModule,
     AuthModule,
     BookModule,
+    BookCategoryModule,
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
-    EffectsModule.forRoot([AuthEffects, BookEffects]),
+    EffectsModule.forRoot([AuthEffects, BookEffects, BookCategoryEffects]),
     StoreDevtoolsModule.instrument()
   ],
   providers: [

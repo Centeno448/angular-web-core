@@ -7,6 +7,7 @@ export const SET_BOOKS = '[Book] Set Books';
 export const ERROR_OCURRED = '[Book] Error Ocurred';
 export const OPERATION_SUCCESS = '[Book] Operation Success';
 export const UPDATE_BOOK = '[Book] Update Book';
+export const DELETE_BOOK_START = '[Book] Delete Book Start';
 export const DELETE_BOOK = '[Book] Delete Book';
 export const CLEAR_SUCCESS_MESSAGE = '[Book] Clear Success Message';
 
@@ -48,6 +49,12 @@ export class UpdateBook implements Action {
   constructor(public payload: { id: number; book: Book }) {}
 }
 
+export class DeleteBookStart implements Action {
+  readonly type = DELETE_BOOK_START;
+
+  constructor(public payload: number) {}
+}
+
 export class DeleteBook implements Action {
   readonly type = DELETE_BOOK;
 
@@ -59,6 +66,7 @@ export type BookActions =
   | FetchBooks
   | SetBooks
   | UpdateBook
+  | DeleteBookStart
   | DeleteBook
   | ErrorOcurred
   | OperationSucess

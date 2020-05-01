@@ -51,6 +51,7 @@ const handleRegisterError = (errorRes) => {
 const handleAuth = (
   id: number,
   username: string,
+  role: string,
   expiresIn: number,
   accessToken: string,
   refreshToken: string
@@ -60,6 +61,7 @@ const handleAuth = (
   const user: User = new User(
     id,
     username,
+    role,
     accessToken,
     expirationDate,
     refreshToken
@@ -69,6 +71,7 @@ const handleAuth = (
   return new AuthActions.AuthSuccess({
     id,
     username,
+    role,
     accessToken,
     refreshToken,
     tokenExpirationDate: expirationDate,
@@ -117,6 +120,7 @@ export class AuthEffects {
           return handleAuth(
             res.id,
             res.username,
+            res.role,
             res.expiresIn,
             res.accessToken,
             res.refreshToken
@@ -167,6 +171,7 @@ export class AuthEffects {
       const userData: {
         id: number;
         username: string;
+        role: string;
         _accesstoken: string;
         _tokenExpirationDate: Date;
         _refreshToken: string;
@@ -187,6 +192,7 @@ export class AuthEffects {
       return new AuthActions.AuthSuccess({
         id: userData.id,
         username: userData.username,
+        role: userData.role,
         accessToken: userData._accesstoken,
         refreshToken: userData._refreshToken,
         tokenExpirationDate: userData._tokenExpirationDate,

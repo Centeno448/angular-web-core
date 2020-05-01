@@ -34,6 +34,7 @@ export class AuthSuccess implements Action {
     public payload: {
       id: number;
       username: string;
+      role: string;
       accessToken: string;
       refreshToken: string;
       tokenExpirationDate: Date;

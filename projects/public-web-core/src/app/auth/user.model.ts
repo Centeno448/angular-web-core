@@ -2,6 +2,7 @@ export class User {
   constructor(
     public id: number,
     public username: string,
+    public role: string,
     private _accesstoken: string,
     private _tokenExpirationDate: Date,
     private _refreshToken: string

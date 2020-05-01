@@ -26,10 +26,10 @@ export class BookEditComponent implements OnInit {
   ngOnInit(): void {
     this.editedId = +this.route.snapshot.paramMap.get('id');
     this.initForm();
-    this.test();
+    this.prepareValues();
   }
 
-  test() {
+  prepareValues() {
     this.store
       .select('book')
       .pipe(

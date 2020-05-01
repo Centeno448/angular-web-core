@@ -29,19 +29,27 @@ export class BookEffects {
   );
 
   @Effect()
-  deleteBook = this.actions$.pipe(
-    ofType(BookActions.DELETE_BOOK),
-    switchMap((action: BookActions.DeleteBook) => {
+  deleteBookStart = this.actions$.pipe(
+    ofType(BookActions.DELETE_BOOK_START),
+    switchMap((action: BookActions.DeleteBookStart) => {
       return this.bookService.deleteBook(action.payload).pipe(
         map((res) => {
-          return new BookActions.OperationSucess(
-            '✔️ Libro eliminado exitosamente'
-          );
+          return new BookActions.DeleteBook(action.payload);
         }),
         catchError((error) => {
           let errorMessage = 'No se pudo eliminar el libro';
           return handleError(errorMessage);
         })
+      );
+    })
+  );
+
+  @Effect()
+  deleteBook = this.actions$.pipe(
+    ofType(BookActions.DELETE_BOOK),
+    switchMap((action: BookActions.DeleteBook) => {
+      return of(
+        new BookActions.OperationSucess('✔️ Libro eliminado exitosamente')
       );
     })
   );
@@ -89,7 +97,6 @@ export class BookEffects {
   constructor(
     private actions$: Actions,
     private bookService: BookService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 }
