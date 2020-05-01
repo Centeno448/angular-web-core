@@ -15,6 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [CommonModule],
@@ -32,7 +33,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatCardModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSelectModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es_EC' }]
 })

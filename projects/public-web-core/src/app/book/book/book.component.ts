@@ -17,7 +17,15 @@ export class BookComponent implements OnInit, OnDestroy {
   isLoading: boolean;
   dataSource: Book[];
   errorMessage: string = '';
-  displayedColumns = ['id', 'name', 'author', 'publicationDate', 'actions'];
+  displayedColumns = [
+    'id',
+    'name',
+    'author',
+    'publicationDate',
+    'category',
+    'owner',
+    'actions'
+  ];
 
   private storeSub: Subscription;
   private dialogSub: Subscription;
@@ -59,7 +67,7 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   deleteBook(id: number) {
-    this.store.dispatch(new BookActions.DeleteBook(id));
+    this.store.dispatch(new BookActions.DeleteBookStart(id));
   }
 
   ngOnDestroy() {

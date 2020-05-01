@@ -27,15 +27,16 @@ export class BookCategoryResolver implements Resolve<BookCategory[]> {
       map((bookState) => {
         return bookState.categories;
       }),
-      switchMap((books) => {
-        if (books.length === 0) {
+      switchMap((categories) => {
+        if (categories.length === 0) {
           this.store.dispatch(new BookCategoryActions.FetchCategories());
           return this.actions$.pipe(
             ofType(BookCategoryActions.SET_CATEGORIES),
             take(1)
           );
         } else {
-          return of(books);
+          console.log(categories);
+          return of(categories);
         }
       })
     );

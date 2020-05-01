@@ -44,3 +44,11 @@ div.mat-form-field-wrapper {
 .no-focus:focus {
   outline: none;
 }
+
+mat-select {
+  text-transform: capitalize;
+}
+
+mat-option {
+  text-transform: capitalize;
+}

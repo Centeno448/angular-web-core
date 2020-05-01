@@ -27,7 +27,9 @@ export class BookService {
         book.publicationDate.getMonth() + 1 < 10
           ? '0' + (book.publicationDate.getMonth() + 1)
           : book.publicationDate.getMonth() + 1
-      }-${book.publicationDate.getDate()}`
+      }-${book.publicationDate.getDate()}`,
+      category: book.category,
+      user: book.owner
     });
   }
 
@@ -39,7 +41,9 @@ export class BookService {
         book.publicationDate.getMonth() + 1 < 10
           ? '0' + (book.publicationDate.getMonth() + 1)
           : book.publicationDate.getMonth() + 1
-      }-${book.publicationDate.getDate()}`
+      }-${book.publicationDate.getDate()}`,
+      category: book.category,
+      user: book.owner
     });
   }
 }

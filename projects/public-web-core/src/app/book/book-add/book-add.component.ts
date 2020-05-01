@@ -1,3 +1,4 @@
+import { map, take } from 'rxjs/operators';
 import { Book } from './../book.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as fromApp from '../../store/app.reducer';
 import * as BookActions from '../store/book.actions';
 import { Store } from '@ngrx/store';
+import { BookCategory } from '../../book-category/book-category.model';
+import { Subscription } from 'rxjs';
+import { UserSelect } from '../../shared/userSelect.model';
 
 @Component({
   selector: 'app-book-add',
@@ -13,6 +17,10 @@ import { Store } from '@ngrx/store';
 })
 export class BookAddComponent implements OnInit {
   bookForm: FormGroup;
+  categories: BookCategory[];
+  users: UserSelect[];
+
+  private categorySub: Subscription;
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -21,6 +29,8 @@ export class BookAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.users = this.route.snapshot.data.users;
+    this.categories = this.route.snapshot.data.categories.payload;
     this.initForm();
   }
 
@@ -34,7 +44,9 @@ export class BookAddComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50)
       ]),
-      publicationDate: new FormControl('', [Validators.required])
+      category: new FormControl('', [Validators.required]),
+      publicationDate: new FormControl('', [Validators.required]),
+      owner: new FormControl('', [Validators.required])
     });
   }
 
@@ -50,6 +62,8 @@ export class BookAddComponent implements OnInit {
     const book = new Book(
       null,
       this.bookForm.get('name').value,
+      this.bookForm.get('category').value,
+      this.bookForm.get('owner').value,
       this.bookForm.get('author').value,
       new Date(this.bookForm.get('publicationDate').value._d)
     );
