@@ -1,0 +1,153 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading"><span>Editar Intercambio</span></div>
+  </div>
+
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-5">
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+        *ngIf="errorMessage"
+      >
+        {{ errorMessage }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          (click)="clearError()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="general-container mat-elevation-z8">
+        <form [formGroup]="exchangeForm" (ngSubmit)="onSubmit()">
+          <div class="example-container">
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>De</mat-label>
+              <mat-select
+                formControlName="fromUser"
+                (selectionChange)="loadFromBooks()"
+                (selectionChange)="checkUserValidity()"
+              >
+                <mat-option *ngFor="let user of users" [value]="user.id">
+                  {{ user.username }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="exchangeForm.get('fromUser').hasError('required')"
+              >
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+
+              <mat-error
+                *ngIf="
+                  exchangeForm.get('fromUser').hasError('sameUser') &&
+                  !exchangeForm.get('fromUser').hasError('required')
+                "
+              >
+                No se puede intercambiar entre un mismo usuario
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Libro 1</mat-label>
+              <mat-select formControlName="fromBook">
+                <mat-option *ngFor="let book of fromBooks" [value]="book.id">
+                  {{ book.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="exchangeForm.get('fromBook').hasError('required')"
+              >
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Para</mat-label>
+              <mat-select
+                formControlName="toUser"
+                (selectionChange)="loadToBooks()"
+                (selectionChange)="checkUserValidity()"
+              >
+                <mat-option *ngFor="let user of users" [value]="user.id">
+                  {{ user.username }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="exchangeForm.get('toUser').hasError('required')"
+              >
+                La categoría es <strong>obligatoria</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  exchangeForm.get('toUser').hasError('sameUser') &&
+                  !exchangeForm.get('toUser').hasError('required')
+                "
+              >
+                No se puede intercambiar entre un mismo usuario
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Libro 2</mat-label>
+              <mat-select formControlName="toBook">
+                <mat-option *ngFor="let book of toBooks" [value]="book.id">
+                  {{ book.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="exchangeForm.get('toBook').hasError('required')"
+              >
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Fecha Intercambio</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="exchangeDate"
+                autocomplete="off"
+                (focus)="picker.open()"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+              <mat-error
+                *ngIf="exchangeForm.get('exchangeDate').hasError('required')"
+              >
+                La fecha de intercambio es <strong>obligatoria</strong>
+              </mat-error>
+            </mat-form-field>
+            <div class="buttons-container">
+              <button
+                type="button"
+                mat-raised-button
+                color="warn"
+                (click)="onCancel()"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="!exchangeForm.valid"
+              >
+                Editar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,8 +34,6 @@ export class BookEditComponent implements OnInit {
       this.route.snapshot.data.categories.payload == undefined
         ? this.route.snapshot.data.categories
         : this.route.snapshot.data.categories.payload;
-    console.log('USERS: ' + this.users);
-    console.log('CATE: ' + this.categories);
     this.initForm();
     this.prepareValues();
   }

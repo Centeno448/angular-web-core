@@ -9,7 +9,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 const handleError = (error: HttpErrorResponse) => {
   let errorMessage = 'No se pudo eliminar la categoría';
-  console.log(error.error.message);
   switch (error.error.message) {
     case 'IN_USE':
       errorMessage = 'La categoría se encuentra en uso.';
@@ -67,7 +66,7 @@ export class BookCategoryEffects {
   );
 
   @Effect()
-  addBook = this.actions$.pipe(
+  addCategory = this.actions$.pipe(
     ofType(BookCategoryActions.ADD_CATEGORY),
     switchMap((action: BookCategoryActions.AddCategory) => {
       return this.bookCategoryService.addCategory(action.payload).pipe(
@@ -85,7 +84,7 @@ export class BookCategoryEffects {
   );
 
   @Effect()
-  updateBook = this.actions$.pipe(
+  updateCategory = this.actions$.pipe(
     ofType(BookCategoryActions.UPDATE_CATEGORY),
     switchMap((action: BookCategoryActions.UpdateCategory) => {
       return this.bookCategoryService

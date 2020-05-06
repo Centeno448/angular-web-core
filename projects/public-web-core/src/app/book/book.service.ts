@@ -41,9 +41,19 @@ export class BookService {
         book.publicationDate.getMonth() + 1 < 10
           ? '0' + (book.publicationDate.getMonth() + 1)
           : book.publicationDate.getMonth() + 1
-      }-${book.publicationDate.getDate()}`,
+      }-${
+        book.publicationDate.getDate() < 10
+          ? '0' + book.publicationDate.getDate()
+          : book.publicationDate.getDate()
+      }`,
       category: book.category,
       user: book.owner
+    });
+  }
+
+  getBookByUser(id: number) {
+    return this.http.post(`${this.baseUrl}/book-user`, {
+      user: id
     });
   }
 }

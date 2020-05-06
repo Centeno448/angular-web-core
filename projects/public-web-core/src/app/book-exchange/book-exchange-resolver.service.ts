@@ -1,4 +1,4 @@
-import { BookCategory } from './book-category.model';
+import { BookExchange } from './book-exchange.model';
 import { Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import {
@@ -7,35 +7,35 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import * as fromApp from '../store/app.reducer';
+import * as ExchangeActions from './store/exchange.actions';
 import { Store } from '@ngrx/store';
 import { take, map, switchMap } from 'rxjs/operators';
-import * as BookCategoryActions from './store/book-category.actions';
 import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookCategoryResolver implements Resolve<BookCategory[]> {
+export class ExchangeResolver implements Resolve<BookExchange[]> {
   constructor(
     private store: Store<fromApp.AppState>,
     private actions$: Actions
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.store.select('category').pipe(
+    return this.store.select('exchange').pipe(
       take(1),
-      map((bookState) => {
-        return bookState.categories;
+      map((exchangeState) => {
+        return exchangeState.exchanges;
       }),
-      switchMap((categories) => {
-        if (categories.length === 0) {
-          this.store.dispatch(new BookCategoryActions.FetchCategories());
+      switchMap((exchanges) => {
+        if (exchanges.length === 0) {
+          this.store.dispatch(new ExchangeActions.FetchExchanges());
           return this.actions$.pipe(
-            ofType(BookCategoryActions.SET_CATEGORIES),
+            ofType(ExchangeActions.SET_EXCHANGES),
             take(1)
           );
         } else {
-          return of(categories);
+          return of(exchanges);
         }
       })
     );
