@@ -1,3 +1,5 @@
+import { RatingModule } from './rating/rating.module';
+import { RatingEffects } from './rating/store/rating.effects';
 import { ExchangeModule } from './book-exchange/book-exchange.module';
 import { BookCategoryEffects } from './book-category/store/book-category.effects';
 import { BookEffects } from './book/store/book.effects';
@@ -35,6 +37,7 @@ import { ExchangeEffects } from './book-exchange/store/exchange.effects';
     BookModule,
     BookCategoryModule,
     ExchangeModule,
+    RatingModule,
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
@@ -42,7 +45,8 @@ import { ExchangeEffects } from './book-exchange/store/exchange.effects';
       AuthEffects,
       BookEffects,
       BookCategoryEffects,
-      ExchangeEffects
+      ExchangeEffects,
+      RatingEffects
     ]),
     StoreDevtoolsModule.instrument()
   ],

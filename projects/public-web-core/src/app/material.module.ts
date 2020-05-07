@@ -16,6 +16,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   imports: [CommonModule],
@@ -34,7 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSliderModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es_EC' }]
 })

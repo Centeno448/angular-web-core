@@ -1,0 +1,124 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading"><span>Agregar Reseña</span></div>
+  </div>
+
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-5">
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+        *ngIf="errorMessage"
+      >
+        {{ errorMessage }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          (click)="clearError()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="general-container mat-elevation-z8">
+        <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+          <div class="example-container">
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>De</mat-label>
+              <mat-select
+                formControlName="fromUser"
+                (selectionChange)="checkUserValidity()"
+              >
+                <mat-option *ngFor="let user of users" [value]="user.id">
+                  {{ user.username }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="ratingForm.get('fromUser').hasError('required')"
+              >
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+
+              <mat-error
+                *ngIf="
+                  ratingForm.get('fromUser').hasError('sameUser') &&
+                  !ratingForm.get('fromUser').hasError('required')
+                "
+              >
+                No se puede hacer una reseña entre un mismo usuario
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Para</mat-label>
+              <mat-select
+                formControlName="toUser"
+                (selectionChange)="checkUserValidity()"
+              >
+                <mat-option *ngFor="let user of users" [value]="user.id">
+                  {{ user.username }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ratingForm.get('toUser').hasError('required')">
+                La categoría es <strong>obligatoria</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  ratingForm.get('toUser').hasError('sameUser') &&
+                  !ratingForm.get('toUser').hasError('required')
+                "
+              >
+                No se puede hacer una reseña entre un mismo usuario
+              </mat-error>
+            </mat-form-field>
+            <br />
+            <div class="custom-form-field">
+              <mat-label class="form-label custom-label"
+                >Calificación</mat-label
+              >
+              <mat-slider
+                formControlName="score"
+                thumbLabel
+                min="0"
+                max="5"
+                step="0.5"
+                tickInterval="1"
+                class="slider-control"
+              ></mat-slider>
+            </div>
+            <mat-form-field class="full-width input-gutters">
+              <mat-label>Comentario</mat-label>
+              <textarea matInput formControlName="comment" rows="1"></textarea>
+              <mat-error
+                *ngIf="ratingForm.get('comment').hasError('maxlength')"
+              >
+                La fecha de intercambio es <strong>máximo</strong> 200
+                caracteres.
+              </mat-error>
+            </mat-form-field>
+            <div class="buttons-container">
+              <button
+                type="button"
+                mat-raised-button
+                color="warn"
+                (click)="onCancel()"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="!ratingForm.valid"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
