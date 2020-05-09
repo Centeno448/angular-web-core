@@ -6,8 +6,19 @@ import { BookService } from '../book.service';
 import * as BookActions from './book.actions';
 import { of } from 'rxjs';
 
-const handleError = (message) => {
-  return of(new BookActions.ErrorOcurred(message));
+const handleError = (error) => {
+  let errorMessage = 'No se pudo completar la acción';
+
+  switch (error.error.message) {
+    case 'IN_USE':
+      errorMessage = 'El libro forma parte de un intercambio.';
+      break;
+
+    default:
+      break;
+  }
+
+  return of(new BookActions.ErrorOcurred(errorMessage));
 };
 
 @Injectable()
@@ -21,8 +32,7 @@ export class BookEffects {
           return new BookActions.SetBooks(books);
         }),
         catchError((error) => {
-          let errorMessage = 'No se pudo obtener los libros';
-          return handleError(errorMessage);
+          return handleError(error);
         })
       );
     })
@@ -37,8 +47,7 @@ export class BookEffects {
           return new BookActions.DeleteBook(action.payload);
         }),
         catchError((error) => {
-          let errorMessage = 'No se pudo eliminar el libro';
-          return handleError(errorMessage);
+          return handleError(error);
         })
       );
     })
@@ -66,8 +75,7 @@ export class BookEffects {
           );
         }),
         catchError((error) => {
-          let errorMessage = 'No se pudo agregar el libro';
-          return handleError(errorMessage);
+          return handleError(error);
         })
       );
     })
@@ -87,8 +95,7 @@ export class BookEffects {
             );
           }),
           catchError((error) => {
-            let errorMessage = 'No se pudo editar el libro';
-            return handleError(errorMessage);
+            return handleError(error);
           })
         );
     })

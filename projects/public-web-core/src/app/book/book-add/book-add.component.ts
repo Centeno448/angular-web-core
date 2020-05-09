@@ -30,7 +30,10 @@ export class BookAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.users = this.route.snapshot.data.users;
-    this.categories = this.route.snapshot.data.categories.payload;
+    this.categories =
+      this.route.snapshot.data.categories.payload == null
+        ? this.route.snapshot.data.categories
+        : this.route.snapshot.data.categories.payload;
     this.initForm();
   }
 

@@ -8,7 +8,8 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 const handleError = (error: HttpErrorResponse) => {
-  let errorMessage = 'No se pudo eliminar la categoría';
+  let errorMessage = 'No se pudo completar la acción';
+
   switch (error.error.message) {
     case 'IN_USE':
       errorMessage = 'La categoría se encuentra en uso.';
