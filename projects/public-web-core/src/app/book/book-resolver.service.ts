@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { Book } from './book.model';
+import { Book } from '../shared/models/book.model';
 import * as fromApp from '../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { take, map, switchMap } from 'rxjs/operators';
@@ -22,6 +22,20 @@ export class BookResolver implements Resolve<Book[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    var userId = 0;
+
+    this.store
+      .select('auth')
+      .pipe(
+        take(1),
+        map((authState) => {
+          return authState.user.id;
+        })
+      )
+      .subscribe((id) => {
+        userId = id;
+      });
+
     return this.store.select('book').pipe(
       take(1),
       map((bookState) => {
@@ -29,7 +43,7 @@ export class BookResolver implements Resolve<Book[]> {
       }),
       switchMap((books) => {
         if (books.length === 0) {
-          this.store.dispatch(new BookActions.FetchBooks());
+          this.store.dispatch(new BookActions.FetchBooks(userId));
           return this.actions$.pipe(ofType(BookActions.SET_BOOKS), take(1));
         } else {
           return of(books);

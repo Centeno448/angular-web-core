@@ -1,0 +1,30 @@
+.container-flex {
+  margin-top: 10px;
+  align-content: center;
+}
+
+.heading {
+  text-align: center;
+}
+.card-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.container-flex .heading {
+  font-size: xx-large;
+}
+
+.image-container {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.mat-card {
+  max-width: 400px;
+  margin: 0 auto 0 auto;
+}
+
+.no-focus:focus {
+  outline: none;
+}

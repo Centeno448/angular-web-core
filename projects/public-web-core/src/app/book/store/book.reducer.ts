@@ -1,4 +1,4 @@
-import { Book } from './../book.model';
+import { Book } from '../../shared/models/book.model';
 import * as BookActions from './book.actions';
 
 export interface State {

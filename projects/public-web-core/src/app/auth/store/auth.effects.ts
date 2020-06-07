@@ -138,7 +138,18 @@ export class AuthEffects {
     ofType(AuthActions.AUTH_SUCCESS),
     tap((action: AuthActions.AuthSuccess) => {
       if (action.payload.redirect) {
-        this.router.navigate(['/']);
+        switch (action.payload.role) {
+          case 'user':
+            this.router.navigate(['/']);
+            break;
+
+          case 'admin':
+            this.router.navigate(['/admin']);
+            break;
+
+          default:
+            break;
+        }
       }
     })
   );

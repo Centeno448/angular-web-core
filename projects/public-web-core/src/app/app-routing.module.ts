@@ -1,14 +1,23 @@
 import { AuthGuard } from './auth/auth.guard';
-import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
-import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { AdminHomeComponent } from './admin-home/home.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { AdminAuthGuard } from './auth/admin-auth.guard';
+import { UserHomeComponent } from './user-home/user-home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent,
+    canActivate: [AdminAuthGuard]
+  },
+  { path: 'home', component: UserHomeComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotfoundComponent }
 ];
 

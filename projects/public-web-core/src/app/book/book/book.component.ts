@@ -1,12 +1,14 @@
-import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { Book } from './../book.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Book } from '../../shared/models/book.model';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as fromApp from '../../store/app.reducer';
 import * as BookActions from '../store/book.actions';
 import { DeleteConfirmationDialogComponent } from '../../shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { take, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-book',
@@ -18,26 +20,28 @@ export class BookComponent implements OnInit, OnDestroy {
   dataSource: Book[];
   errorMessage: string = '';
   displayedColumns = [
-    'id',
     'name',
     'author',
     'publicationDate',
     'category',
-    'owner',
     'actions'
   ];
 
   private storeSub: Subscription;
+  private userId: number;
   private dialogSub: Subscription;
   private _snackBarDuration = 2;
 
   constructor(
     private store: Store<fromApp.AppState>,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.data.auth.id;
+
     this.storeSub = this.store.select('book').subscribe((bookState) => {
       this.isLoading = bookState.isLoading;
       this.dataSource = bookState.books;
@@ -50,7 +54,7 @@ export class BookComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.dispatch(new BookActions.FetchBooks());
+    this.store.dispatch(new BookActions.FetchBooks(this.userId));
   }
 
   deleteDialog(name: string, id: number) {

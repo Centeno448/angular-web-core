@@ -1,4 +1,4 @@
-import { Book } from './../book.model';
+import { Book } from '../../shared/models/book.model';
 import { Action } from '@ngrx/store';
 
 export const ADD_BOOK = '[Book] Add Book';
@@ -19,6 +19,8 @@ export class AddBook implements Action {
 
 export class FetchBooks implements Action {
   readonly type = FETCH_BOOKS;
+
+  constructor(public payload: number) {}
 }
 
 export class SetBooks implements Action {

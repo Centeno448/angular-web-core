@@ -1,10 +1,15 @@
-<div class="container-flex">
+<div class="container-flex" *ngIf="!!user">
   <mat-toolbar color="primary">
     <mat-toolbar-row class="nav-container">
-      <span class="nav-title"><a routerLink="/">Web Core</a></span>
+      <span *ngIf="user.role == 'admin'" class="nav-title"
+        ><a routerLink="/admin">Web Core</a></span
+      >
+      <span *ngIf="user.role != 'admin'" class="nav-title"
+        ><a routerLink="/">Web Core</a></span
+      >
       <span class="divider"></span>
       <button
-        *ngIf="user"
+        *ngIf="user.role == 'admin'"
         class="menu-item nav-item"
         mat-flat-button
         [mat-menu-trigger-for]="menu"
@@ -13,19 +18,46 @@
         Admin
       </button>
       <mat-menu #menu="matMenu" xPosition="after">
-        <a class="menu-item" mat-menu-item routerLink="/book">
+        <a class="menu-item" mat-menu-item routerLink="/admin-book">
           Libros
         </a>
         <a class="menu-item" mat-menu-item routerLink="/category">
           Categorías
         </a>
-        <a class="menu-item" mat-menu-item routerLink="/exchange">
+        <a class="menu-item" mat-menu-item routerLink="/admin-exchange">
           Intercambio
         </a>
-        <a class="menu-item" mat-menu-item routerLink="/rating">
+        <a class="menu-item" mat-menu-item routerLink="/admin-rating">
           Reseñas
         </a>
       </mat-menu>
+      <button
+        *ngIf="user.role != 'admin'"
+        class="menu-item nav-item"
+        mat-flat-button
+        color="accent"
+        routerLink="/book"
+      >
+        Mis Libros
+      </button>
+      <button
+        *ngIf="user.role != 'admin'"
+        class="menu-item nav-item"
+        mat-flat-button
+        color="accent"
+        routerLink="/exchange"
+      >
+        Intercambios
+      </button>
+      <button
+        *ngIf="user.role != 'admin'"
+        class="menu-item nav-item"
+        mat-flat-button
+        color="accent"
+        routerLink="/rating"
+      >
+        Reseñas
+      </button>
       <span class="fill-space"></span>
       <button
         *ngIf="!!user"

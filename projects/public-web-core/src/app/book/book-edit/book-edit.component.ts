@@ -1,14 +1,13 @@
-import { BookCategory } from './../../book-category/book-category.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from './../book.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BookCategory } from '../../book-category/book-category.model';
 import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { take, map } from 'rxjs/operators';
+import { Book } from '../../shared/models/book.model';
+import { isMoment } from 'moment';
 import * as fromApp from '../../store/app.reducer';
 import * as BookActions from '../store/book.actions';
-import { take, map } from 'rxjs/operators';
-import { isMoment } from 'moment';
-import { UserSelect } from '../../shared/userSelect.model';
 
 @Component({
   selector: 'app-book-edit',
@@ -18,8 +17,8 @@ import { UserSelect } from '../../shared/userSelect.model';
 export class BookEditComponent implements OnInit {
   bookForm: FormGroup;
   private editedId: number;
+  private userId: any;
   categories: BookCategory[];
-  users: UserSelect[];
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -28,8 +27,8 @@ export class BookEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.data.auth.id;
     this.editedId = +this.route.snapshot.paramMap.get('id');
-    this.users = this.route.snapshot.data.users;
     this.categories =
       this.route.snapshot.data.categories.payload == undefined
         ? this.route.snapshot.data.categories
@@ -55,10 +54,6 @@ export class BookEditComponent implements OnInit {
   }
 
   setFormValues(book: Book) {
-    var owner = this.users.find((user) => {
-      return user.username == book.owner;
-    });
-
     var category = this.categories.find((category) => {
       return category.name == book.category;
     });
@@ -67,7 +62,6 @@ export class BookEditComponent implements OnInit {
       name: book.name,
       author: book.author,
       publicationDate: book.publicationDate,
-      owner: owner.id,
       category: category.id
     });
   }
@@ -83,8 +77,7 @@ export class BookEditComponent implements OnInit {
         Validators.maxLength(50)
       ]),
       category: new FormControl('', [Validators.required]),
-      publicationDate: new FormControl('', [Validators.required]),
-      owner: new FormControl('', [Validators.required])
+      publicationDate: new FormControl('', [Validators.required])
     });
   }
 
@@ -99,7 +92,7 @@ export class BookEditComponent implements OnInit {
         null,
         this.bookForm.get('name').value,
         this.bookForm.get('category').value,
-        this.bookForm.get('owner').value,
+        this.userId,
         this.bookForm.get('author').value,
         new Date(this.bookForm.get('publicationDate').value._d)
       );
@@ -108,7 +101,7 @@ export class BookEditComponent implements OnInit {
         null,
         this.bookForm.get('name').value,
         this.bookForm.get('category').value,
-        this.bookForm.get('owner').value,
+        this.userId,
         this.bookForm.get('author').value,
         new Date(this.bookForm.get('publicationDate').value)
       );

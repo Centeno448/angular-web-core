@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { BookService } from '../book.service';
+import { BookService } from '../../shared/services/book.service';
 import * as BookActions from './book.actions';
 import { of } from 'rxjs';
 
@@ -27,7 +27,7 @@ export class BookEffects {
   fetchBooks = this.actions$.pipe(
     ofType(BookActions.FETCH_BOOKS),
     switchMap((action: BookActions.FetchBooks) => {
-      return this.bookService.getAllBooks().pipe(
+      return this.bookService.getBooksByUser(action.payload).pipe(
         map((books) => {
           return new BookActions.SetBooks(books);
         }),

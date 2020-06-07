@@ -1,6 +1,6 @@
+import { AdminAuthGuard } from './../auth/admin-auth.guard';
 import { BookCategoryAddComponent } from './book-category-add/book-category-add.component';
 import { BookCategoryEditComponent } from './book-category-edit/book-category-edit.component';
-import { AuthGuard } from './../auth/auth.guard';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BookCategoryComponent } from './book-category/book-category.component';
@@ -10,18 +10,18 @@ const routes: Routes = [
   {
     path: 'category',
     component: BookCategoryComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'category/edit/:id',
     component: BookCategoryEditComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminAuthGuard],
     resolve: [BookCategoryResolver]
   },
   {
     path: 'category/add',
     component: BookCategoryAddComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminAuthGuard]
   }
 ];
 

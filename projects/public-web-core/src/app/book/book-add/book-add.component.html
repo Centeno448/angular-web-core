@@ -2,7 +2,6 @@
   <div class="row no-gutters">
     <div class="col heading"><span>Agregar Libro</span></div>
   </div>
-
   <br />
   <div class="row no-gutters justify-content-center">
     <div class="col-lg-5">
@@ -77,18 +76,6 @@
                 *ngIf="bookForm.get('publicationDate').hasError('required')"
               >
                 La fecha de publicaci&oacute;n es <strong>obligatoria</strong>
-              </mat-error>
-            </mat-form-field>
-            <br />
-            <mat-form-field class="full-width input-gutters">
-              <mat-label>Dueño</mat-label>
-              <mat-select formControlName="owner">
-                <mat-option *ngFor="let user of users" [value]="user.id">
-                  {{ user.username }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="bookForm.get('owner').hasError('required')">
-                El dueño es <strong>obligatorio</strong>
               </mat-error>
             </mat-form-field>
 
