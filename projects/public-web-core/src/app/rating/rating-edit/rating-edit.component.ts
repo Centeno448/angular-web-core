@@ -1,4 +1,3 @@
-import { Rating } from '../../shared/models/rating.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserSelect } from '../../shared/userSelect.model';
@@ -6,21 +5,23 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take, map } from 'rxjs/operators';
+import { Rating } from '../../shared/models/rating.model';
 import * as fromApp from '../../store/app.reducer';
-import * as RatingActions from '../store/admin-rating.actions';
+import * as RatingActions from '../store/rating.actions';
 
 @Component({
   selector: 'app-rating-edit',
-  templateUrl: './admin-rating-edit.component.html',
-  styleUrls: ['./admin-rating-edit.component.css']
+  templateUrl: './rating-edit.component.html',
+  styleUrls: ['./rating-edit.component.css']
 })
-export class AdminRatingEditComponent implements OnInit, OnDestroy {
+export class RatingEditComponent implements OnInit, OnDestroy {
   ratingForm: FormGroup;
   users: UserSelect[];
   errorMessage: string;
-  private editedId: number;
 
-  storeSub: Subscription;
+  private editedId: number;
+  private userId: number;
+  private storeSub: Subscription;
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -29,27 +30,27 @@ export class AdminRatingEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.data.auth.id;
     this.editedId = +this.route.snapshot.paramMap.get('id');
-    this.users = this.route.snapshot.data.users;
-    this.storeSub = this.store
-      .select('adminrating')
-      .subscribe((ratingState) => {
-        this.errorMessage = ratingState.error;
-        if (this.errorMessage) {
-          setTimeout(this.clearError.bind(this), 5000);
-        }
-      });
+
+    this.storeSub = this.store.select('rating').subscribe((ratingState) => {
+      this.errorMessage = ratingState.error;
+      this.users = ratingState.validUsers;
+      if (this.errorMessage) {
+        setTimeout(this.clearError.bind(this), 5000);
+      }
+    });
     this.initForm();
     this.prepareValues();
   }
 
   prepareValues() {
     this.store
-      .select('adminrating')
+      .select('rating')
       .pipe(
         take(1),
         map((ratingState) => {
-          return ratingState.ratings.find((rating) => {
+          return ratingState.sentRatings.find((rating) => {
             return rating.id === this.editedId;
           });
         })
@@ -64,13 +65,8 @@ export class AdminRatingEditComponent implements OnInit, OnDestroy {
       return user.username == rating.toUser;
     });
 
-    var fromUser = this.users.find((user) => {
-      return user.username == rating.fromUser;
-    });
-
     this.ratingForm.patchValue({
       toUser: toUser.id,
-      fromUser: fromUser.id,
       score: rating.score,
       comment: rating.comment
     });
@@ -79,7 +75,6 @@ export class AdminRatingEditComponent implements OnInit, OnDestroy {
   initForm() {
     this.ratingForm = new FormGroup({
       toUser: new FormControl('', [Validators.required]),
-      fromUser: new FormControl('', [Validators.required]),
       score: new FormControl('', [
         Validators.required,
         Validators.max(5),
@@ -87,21 +82,6 @@ export class AdminRatingEditComponent implements OnInit, OnDestroy {
       ]),
       comment: new FormControl('', [Validators.maxLength(200)])
     });
-  }
-
-  checkUserValidity() {
-    var to = this.ratingForm.get('toUser');
-    var from = this.ratingForm.get('fromUser');
-
-    if (to.value === from.value) {
-      to.setErrors({ sameUser: true });
-      from.setErrors({ sameUser: true });
-    } else {
-      to.setErrors({ sameUser: null });
-      from.setErrors({ sameUser: null });
-      to.updateValueAndValidity();
-      from.updateValueAndValidity();
-    }
   }
 
   onCancel() {
@@ -122,7 +102,7 @@ export class AdminRatingEditComponent implements OnInit, OnDestroy {
       +this.ratingForm.get('score').value,
       this.ratingForm.get('comment').value,
       this.ratingForm.get('toUser').value,
-      this.ratingForm.get('fromUser').value
+      this.userId.toString()
     );
 
     const id = this.editedId;

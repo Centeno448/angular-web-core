@@ -1,3 +1,4 @@
+import { RatingModule } from './rating/rating.module';
 import { BookEffects } from './book/store/book.effects';
 import { AdminRatingModule } from './admin-rating/admin-rating.module';
 import { AdminRatingEffects } from './admin-rating/store/admin-rating.effects';
@@ -28,6 +29,7 @@ import { BookCategoryModule } from './book-category/book-category.module';
 import { AdminExchangeEffects } from './admin-book-exchange/store/admin-exchange.effects';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { BookModule } from './book/book.module';
+import { RatingEffects } from './rating/store/rating.effects';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { BookModule } from './book/book.module';
     BookCategoryModule,
     AdminExchangeModule,
     AdminRatingModule,
+    RatingModule,
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
@@ -56,7 +59,8 @@ import { BookModule } from './book/book.module';
       BookCategoryEffects,
       AdminExchangeEffects,
       AdminRatingEffects,
-      BookEffects
+      BookEffects,
+      RatingEffects
     ]),
     StoreDevtoolsModule.instrument()
   ],

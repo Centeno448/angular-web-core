@@ -1,4 +1,4 @@
-import { Rating } from './../rating.model';
+import { Rating } from '../../shared/models/rating.model';
 import * as AdminRatingActions from './admin-rating.actions';
 
 export interface State {

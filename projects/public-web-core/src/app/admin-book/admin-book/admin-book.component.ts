@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { Book } from '../book.model';
+import { Book } from '../../shared/models/book.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';

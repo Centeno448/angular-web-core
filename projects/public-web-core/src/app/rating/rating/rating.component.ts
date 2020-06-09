@@ -1,62 +1,59 @@
-import { Rating } from '../../shared/models/rating.model';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Rating } from '../../shared/models/rating.model';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as fromApp from '../../store/app.reducer';
-import * as RatingActions from '../store/admin-rating.actions';
 import { DeleteConfirmationDialogComponent } from '../../shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+
+import * as fromApp from '../../store/app.reducer';
+import * as RatingActions from '../store/rating.actions';
 
 @Component({
   selector: 'app-rating',
-  templateUrl: './admin-rating.component.html',
-  styleUrls: ['./admin-rating.component.css']
+  templateUrl: './rating.component.html',
+  styleUrls: ['./rating.component.css']
 })
-export class AdminRatingComponent implements OnInit, OnDestroy {
+export class RatingComponent implements OnInit, OnDestroy {
   isLoading: boolean;
   dataSource: Rating[];
   errorMessage: string = '';
-  displayedColumns = [
-    'id',
-    'score',
-    'comment',
-    'fromUser',
-    'toUser',
-    'actions'
-  ];
+  displayedColumns = ['toUser', 'score', 'comment', 'actions'];
 
   private storeSub: Subscription;
   private dialogSub: Subscription;
   private _snackBarDuration = 2;
+  private userId: number;
 
   constructor(
     private store: Store<fromApp.AppState>,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.storeSub = this.store
-      .select('adminrating')
-      .subscribe((ratingState) => {
-        this.isLoading = ratingState.isLoading;
-        this.dataSource = ratingState.ratings;
-        this.errorMessage = ratingState.error;
+    this.userId = this.route.snapshot.data.auth.id;
 
-        if (ratingState.success) {
-          this._snackBar.open(ratingState.success, null, {
-            duration: this._snackBarDuration * 1000
-          });
-          this.store.dispatch(new RatingActions.ClearSuccessMessage());
-        }
+    this.storeSub = this.store.select('rating').subscribe((ratingState) => {
+      this.isLoading = ratingState.isLoading;
+      this.dataSource = ratingState.sentRatings;
+      this.errorMessage = ratingState.error;
 
-        if (this.errorMessage) {
-          setTimeout(this.clearError.bind(this), 5000);
-        }
-      });
+      if (ratingState.success) {
+        this._snackBar.open(ratingState.success, null, {
+          duration: this._snackBarDuration * 1000
+        });
+        this.store.dispatch(new RatingActions.ClearSuccessMessage());
+      }
 
-    this.store.dispatch(new RatingActions.FetchRatings());
+      if (this.errorMessage) {
+        setTimeout(this.clearError.bind(this), 5000);
+      }
+    });
+
+    this.store.dispatch(new RatingActions.FetchRatings(this.userId));
   }
 
   clearError() {

@@ -1,6 +1,6 @@
 <div class="container-flex">
   <div class="row no-gutters">
-    <div class="col heading"><span>Agregar Reseña</span></div>
+    <div class="col heading"><span>Editar Reseña</span></div>
   </div>
 
   <br />
@@ -62,7 +62,7 @@
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="ratingForm.get('toUser').hasError('required')">
-                La categoría es <strong>obligatoria</strong>
+                El campo es <strong>obligatorio</strong>
               </mat-error>
               <mat-error
                 *ngIf="
@@ -94,8 +94,7 @@
               <mat-error
                 *ngIf="ratingForm.get('comment').hasError('maxlength')"
               >
-                La fecha de intercambio es <strong>máximo</strong> 200
-                caracteres.
+                El comentario es <strong>máximo</strong> 200 caracteres.
               </mat-error>
             </mat-form-field>
             <div class="buttons-container">

@@ -1,5 +1,5 @@
 import { AdminAuthGuard } from '../auth/admin-auth.guard';
-import { RatingResolver } from './rating-resolver.service';
+import { AdminRatingResolver } from './admin-rating-resolver.service';
 import { UserResolver } from '../shared/user-resolver.service';
 import { AdminRatingComponent } from './admin-rating/admin-rating.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -18,7 +18,7 @@ const routes: Routes = [
     component: AdminRatingEditComponent,
     canActivate: [AdminAuthGuard],
     resolve: {
-      RatingResolver,
+      AdminRatingResolver,
       users: UserResolver
     }
   },

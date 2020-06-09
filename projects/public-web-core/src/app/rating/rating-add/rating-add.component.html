@@ -26,51 +26,14 @@
         <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
           <div class="example-container">
             <mat-form-field class="full-width input-gutters">
-              <mat-label>De</mat-label>
-              <mat-select
-                formControlName="fromUser"
-                (selectionChange)="checkUserValidity()"
-              >
-                <mat-option *ngFor="let user of users" [value]="user.id">
-                  {{ user.username }}
-                </mat-option>
-              </mat-select>
-              <mat-error
-                *ngIf="ratingForm.get('fromUser').hasError('required')"
-              >
-                El campo es <strong>obligatorio</strong>
-              </mat-error>
-
-              <mat-error
-                *ngIf="
-                  ratingForm.get('fromUser').hasError('sameUser') &&
-                  !ratingForm.get('fromUser').hasError('required')
-                "
-              >
-                No se puede hacer una reseña entre un mismo usuario
-              </mat-error>
-            </mat-form-field>
-            <br />
-            <mat-form-field class="full-width input-gutters">
               <mat-label>Para</mat-label>
-              <mat-select
-                formControlName="toUser"
-                (selectionChange)="checkUserValidity()"
-              >
+              <mat-select formControlName="toUser">
                 <mat-option *ngFor="let user of users" [value]="user.id">
                   {{ user.username }}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="ratingForm.get('toUser').hasError('required')">
-                El campo es <strong>obligatorio</strong>
-              </mat-error>
-              <mat-error
-                *ngIf="
-                  ratingForm.get('toUser').hasError('sameUser') &&
-                  !ratingForm.get('toUser').hasError('required')
-                "
-              >
-                No se puede hacer una reseña entre un mismo usuario
+                Seleccione un usuario
               </mat-error>
             </mat-form-field>
             <br />

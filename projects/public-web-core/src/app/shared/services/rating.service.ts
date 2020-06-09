@@ -1,5 +1,6 @@
-import { Rating } from './rating.model';
-import { environment } from './../../environments/environment';
+import { UserSelect } from './../userSelect.model';
+import { Rating } from './../models/rating.model';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -35,5 +36,17 @@ export class RatingService {
       toUser: rating.toUser,
       fromUser: rating.fromUser
     });
+  }
+
+  getRatingsFromUser(id: number) {
+    return this.http.get<Rating[]>(`${this.baseUrl}/${id}`);
+  }
+
+  getRatingsToUser(id: number) {
+    return this.http.get<Rating[]>(`${this.baseUrl}/recieved/${id}`);
+  }
+
+  getValidRatingUsers(id: number) {
+    return this.http.get<UserSelect[]>(`${this.baseUrl}/users/${id}`);
   }
 }

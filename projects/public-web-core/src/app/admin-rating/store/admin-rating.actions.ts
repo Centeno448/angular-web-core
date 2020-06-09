@@ -1,4 +1,4 @@
-import { Rating } from '../rating.model';
+import { Rating } from '../../shared/models/rating.model';
 import { Action } from '@ngrx/store';
 
 export const ADD_RATING = '[Admin-Rating] Add Rating';

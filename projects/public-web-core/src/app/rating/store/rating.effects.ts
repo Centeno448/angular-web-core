@@ -3,14 +3,14 @@ import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { RatingService } from '../../shared/services/rating.service';
-import * as AdminRatingActions from './admin-rating.actions';
+import * as AdminRatingActions from './rating.actions';
 import { of } from 'rxjs';
 
 const handleError = (error) => {
   let errorMessage = 'No se pudo agregar la reseña';
   switch (error.error.message) {
     case 'DUPLICATE_RATING':
-      errorMessage = 'Ya existe una reseña con esa combinación de usuarios';
+      errorMessage = 'Ya existe una reseña para ese usuario';
       break;
 
     default:
@@ -21,17 +21,49 @@ const handleError = (error) => {
 };
 
 @Injectable()
-export class AdminRatingEffects {
+export class RatingEffects {
   @Effect()
   fetchRatings = this.actions$.pipe(
     ofType(AdminRatingActions.FETCH_RATINGS),
     switchMap((action: AdminRatingActions.FetchRatings) => {
-      return this.ratingService.getAllRatings().pipe(
+      return this.ratingService.getRatingsFromUser(action.payload).pipe(
         map((ratings) => {
           return new AdminRatingActions.SetRatings(ratings);
         }),
         catchError((error) => {
           let errorMessage = 'No se pudo obtener las reseñas';
+          return handleError(errorMessage);
+        })
+      );
+    })
+  );
+
+  @Effect()
+  fetchRecievedRatings = this.actions$.pipe(
+    ofType(AdminRatingActions.FETCH_RECIEVED_RATINGS),
+    switchMap((action: AdminRatingActions.FetchRecievedRatings) => {
+      return this.ratingService.getRatingsToUser(action.payload).pipe(
+        map((ratings) => {
+          return new AdminRatingActions.SetRecievedRatings(ratings);
+        }),
+        catchError((error) => {
+          let errorMessage = 'No se pudo obtener las reseñas';
+          return handleError(errorMessage);
+        })
+      );
+    })
+  );
+
+  @Effect()
+  fetchValidUsers = this.actions$.pipe(
+    ofType(AdminRatingActions.FETCH_VALID_USERS),
+    switchMap((action: AdminRatingActions.FetchValidUsers) => {
+      return this.ratingService.getValidRatingUsers(action.payload).pipe(
+        map((users) => {
+          return new AdminRatingActions.SetValidUsers(users);
+        }),
+        catchError((error) => {
+          let errorMessage = 'No se pudo obtener los usuarios';
           return handleError(errorMessage);
         })
       );
@@ -72,7 +104,7 @@ export class AdminRatingEffects {
     switchMap((action: AdminRatingActions.AddRating) => {
       return this.ratingService.addRating(action.payload).pipe(
         map((res) => {
-          this.router.navigate(['admin-rating']);
+          this.router.navigate(['rating']);
           return new AdminRatingActions.OperationSucess(
             '✔️ Reseña agregada exitosamente'
           );
@@ -92,7 +124,7 @@ export class AdminRatingEffects {
         .updateRating(action.payload.id, action.payload.rating)
         .pipe(
           map((res) => {
-            this.router.navigate(['admin-rating']);
+            this.router.navigate(['rating']);
             return new AdminRatingActions.OperationSucess(
               '✔️ Reseña editada exitosamente'
             );
