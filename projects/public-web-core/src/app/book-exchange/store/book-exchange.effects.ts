@@ -3,7 +3,7 @@ import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { ExchangeService } from '../../shared/services/book-exchange.service';
-import * as ExchangeActions from './admin-exchange.actions';
+import * as ExchangeActions from './book-exchange.actions';
 import { of } from 'rxjs';
 
 const handleError = (message) => {
@@ -11,12 +11,12 @@ const handleError = (message) => {
 };
 
 @Injectable()
-export class AdminExchangeEffects {
+export class ExchangeEffects {
   @Effect()
   fetchExchanges = this.actions$.pipe(
     ofType(ExchangeActions.FETCH_EXCHANGES),
     switchMap((action: ExchangeActions.FetchExchanges) => {
-      return this.ExchangeService.getAllExchanges().pipe(
+      return this.ExchangeService.getExchangeByUser(action.payload).pipe(
         map((exchanges) => {
           return new ExchangeActions.SetExchanges(exchanges);
         }),
@@ -29,29 +29,20 @@ export class AdminExchangeEffects {
   );
 
   @Effect()
-  deleteExchangeStart = this.actions$.pipe(
-    ofType(ExchangeActions.DELETE_EXCHANGE_START),
-    switchMap((action: ExchangeActions.DeleteExchangeStart) => {
-      return this.ExchangeService.deleteExchange(action.payload).pipe(
-        map((res) => {
-          return new ExchangeActions.DeleteExchange(action.payload);
+  fetchValidExchanges = this.actions$.pipe(
+    ofType(ExchangeActions.FETCH_VALID_EXCHANGES),
+    switchMap((action: ExchangeActions.FetchValidExchanges) => {
+      return this.ExchangeService.getValidExchanges(
+        action.payload.categoryId,
+        action.payload.userId
+      ).pipe(
+        map((exchanges) => {
+          return new ExchangeActions.SetValidExchanges(exchanges);
         }),
         catchError((error) => {
-          let errorMessage = 'No se pudo eliminar el intercambio';
+          let errorMessage = 'No se pudo obtener los intercambios validos';
           return handleError(errorMessage);
         })
-      );
-    })
-  );
-
-  @Effect()
-  deleteExchange = this.actions$.pipe(
-    ofType(ExchangeActions.DELETE_EXCHANGE),
-    switchMap((action: ExchangeActions.DeleteExchange) => {
-      return of(
-        new ExchangeActions.OperationSucess(
-          '✔️ Intercambio eliminado exitosamente'
-        )
       );
     })
   );
@@ -62,7 +53,7 @@ export class AdminExchangeEffects {
     switchMap((action: ExchangeActions.AddExchange) => {
       return this.ExchangeService.addExchange(action.payload).pipe(
         map((res) => {
-          this.router.navigate(['admin-exchange']);
+          this.router.navigate(['exchange']);
           return new ExchangeActions.OperationSucess(
             '✔️ Intercambio agregado exitosamente'
           );
@@ -70,28 +61,6 @@ export class AdminExchangeEffects {
         catchError((error) => {
           console.log('ERROR');
           let errorMessage = 'No se pudo agregar el intercambio';
-          return handleError(errorMessage);
-        })
-      );
-    })
-  );
-
-  @Effect()
-  updateExchange = this.actions$.pipe(
-    ofType(ExchangeActions.UPDATE_EXCHANGE),
-    switchMap((action: ExchangeActions.UpdateExchange) => {
-      return this.ExchangeService.updateExchange(
-        action.payload.id,
-        action.payload.exchange
-      ).pipe(
-        map((res) => {
-          this.router.navigate(['admin-exchange']);
-          return new ExchangeActions.OperationSucess(
-            '✔️ Intercambio editado exitosamente'
-          );
-        }),
-        catchError((error) => {
-          let errorMessage = 'No se pudo editar el intercambio';
           return handleError(errorMessage);
         })
       );

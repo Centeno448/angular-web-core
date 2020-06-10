@@ -8,6 +8,7 @@ import * as fromAdminRating from '../admin-rating/store/admin-rating.reducer';
 //Users
 import * as fromBook from '../book/store/book.reducer';
 import * as fromRating from '../rating/store/rating.reducer';
+import * as fromExchange from '../book-exchange/store/book-exchange.reducer';
 
 import { ActionReducerMap } from '@ngrx/store';
 
@@ -19,6 +20,7 @@ export interface AppState {
   adminrating: fromAdminRating.State;
   book: fromBook.State;
   rating: fromRating.State;
+  exchange: fromExchange.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -28,5 +30,6 @@ export const appReducer: ActionReducerMap<AppState> = {
   adminexchange: fromAdminExchange.AdminExchangeReducer,
   adminrating: fromAdminRating.AdminRatingReducer,
   book: fromBook.BookReducer,
-  rating: fromRating.RatingReducer
+  rating: fromRating.RatingReducer,
+  exchange: fromExchange.ExchangeReducer
 };

@@ -1,4 +1,4 @@
-import { BookExchange } from '../book-exchange.model';
+import { BookExchange } from '../../shared/models/book-exchange.model';
 import { Action } from '@ngrx/store';
 
 export const ADD_EXCHANGE = '[Admin-Exchange] Add Exchange';

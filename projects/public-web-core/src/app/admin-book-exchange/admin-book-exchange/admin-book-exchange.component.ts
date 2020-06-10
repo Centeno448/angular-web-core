@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookExchange } from '../book-exchange.model';
+import { BookExchange } from '../../shared/models/book-exchange.model';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';

@@ -30,6 +30,8 @@ import { AdminExchangeEffects } from './admin-book-exchange/store/admin-exchange
 import { UserHomeComponent } from './user-home/user-home.component';
 import { BookModule } from './book/book.module';
 import { RatingEffects } from './rating/store/rating.effects';
+import { ExchangeEffects } from './book-exchange/store/book-exchange.effects';
+import { ExchangeModule } from './book-exchange/book-exchange.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { RatingEffects } from './rating/store/rating.effects';
     AdminExchangeModule,
     AdminRatingModule,
     RatingModule,
+    ExchangeModule,
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),
@@ -60,7 +63,8 @@ import { RatingEffects } from './rating/store/rating.effects';
       AdminExchangeEffects,
       AdminRatingEffects,
       BookEffects,
-      RatingEffects
+      RatingEffects,
+      ExchangeEffects
     ]),
     StoreDevtoolsModule.instrument()
   ],

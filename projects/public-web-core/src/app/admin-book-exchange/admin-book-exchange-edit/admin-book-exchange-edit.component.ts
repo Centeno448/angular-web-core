@@ -1,4 +1,4 @@
-import { BookExchange } from '../book-exchange.model';
+import { BookExchange } from '../../shared/models/book-exchange.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserSelect } from '../../shared/userSelect.model';

@@ -1,4 +1,4 @@
-import { BookExchange } from '../book-exchange.model';
+import { BookExchange } from '../../shared/models/book-exchange.model';
 import * as AdminExchangeActions from './admin-exchange.actions';
 
 export interface State {

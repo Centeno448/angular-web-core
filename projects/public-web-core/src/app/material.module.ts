@@ -17,6 +17,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [CommonModule],
@@ -36,7 +39,10 @@ import { MatSliderModule } from '@angular/material/slider';
     MatDatepickerModule,
     MatMomentDateModule,
     MatSelectModule,
-    MatSliderModule
+    MatSliderModule,
+    MatStepperModule,
+    MatCheckboxModule,
+    MatListModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es_EC' }]
 })

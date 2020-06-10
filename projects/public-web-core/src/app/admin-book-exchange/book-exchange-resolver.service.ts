@@ -1,4 +1,4 @@
-import { BookExchange } from './book-exchange.model';
+import { BookExchange } from '../shared/models/book-exchange.model';
 import { Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import {

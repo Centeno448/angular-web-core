@@ -1,0 +1,89 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading"><span>Agregar Intercambio</span></div>
+  </div>
+
+  <br />
+  <div class="row no-gutters justify-content-center">
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step
+        [stepControl]="firstFormGroup"
+        errorMessage="El libro es obligatorio"
+      >
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel
+            >Selecciona el libro para intercambiar</ng-template
+          >
+          <mat-form-field>
+            <mat-label>Libro</mat-label>
+            <mat-select formControlName="book" required>
+              <mat-option *ngFor="let book of books" [value]="book.id">
+                {{ book.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step
+        [stepControl]="secondFormGroup"
+        errorMessage="Selecciona al menos 1 categoría."
+      >
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel
+            >Selecciona la categoría para buscar</ng-template
+          >
+          <mat-form-field>
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category" required>
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.id"
+              >
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Regresar</button>
+            <button mat-button matStepperNext (click)="getAvailableExchanges()">
+              Siguiente
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Seleccionar libro para cambiar</ng-template>
+          <mat-selection-list #exchange [multiple]="false" required>
+            <div mat-subheader>Libros Encontrados</div>
+            <mat-list-option
+              [value]="exchange"
+              *ngFor="let exchange of validExchanges"
+            >
+              <div mat-line>Usuario: {{ exchange.user }}</div>
+              <div mat-line>Libro: {{ exchange.book }}</div>
+            </mat-list-option>
+          </mat-selection-list>
+
+          <p *ngIf="validExchanges.length == 0">
+            No se encontraron libros para esa categoría
+          </p>
+          <div>
+            <button mat-button matStepperPrevious>Regresar</button>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="submit(exchange)"
+              [disabled]="validExchanges.length == 0"
+            >
+              Intercambiar
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>
