@@ -1,3 +1,5 @@
+import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
+import { ReportModule } from './report/report.module';
 import { RatingModule } from './rating/rating.module';
 import { BookEffects } from './book/store/book.effects';
 import { AdminRatingModule } from './admin-rating/admin-rating.module';
@@ -53,6 +55,7 @@ import { ExchangeModule } from './book-exchange/book-exchange.module';
     AdminRatingModule,
     RatingModule,
     ExchangeModule,
+    ReportModule,
     AppRoutingModule,
     MaterialModule,
     StoreModule.forRoot(FromRoot.appReducer),

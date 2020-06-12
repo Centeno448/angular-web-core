@@ -1,0 +1,29 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading"><span>Reportes - Reseñas</span></div>
+  </div>
+  <div class="row no-gutters" *ngFor="let chunk of chunkedData">
+    <div class="col card-container" *ngFor="let user of chunk">
+      <mat-icon
+        aria-hidden="false"
+        class="position-icon"
+        [class]="user.index | positionMatch: 'place'"
+        >looks_{{ user.index | positionMatch: 'icons' }}</mat-icon
+      >
+      <mat-card
+        class="mat-card"
+        [class]="user.index | positionMatch: 'card-place'"
+      >
+        <mat-card-header>
+          <mat-card-title>Usuario: {{ user.user | capitalize }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Con un promedio de reseñas de
+            {{ user.averageScore }}pts
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

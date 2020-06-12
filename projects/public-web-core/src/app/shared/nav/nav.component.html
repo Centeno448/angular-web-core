@@ -31,6 +31,24 @@
           Reseñas
         </a>
       </mat-menu>
+
+      <button
+        *ngIf="user.role == 'admin'"
+        class="menu-item nav-item"
+        mat-flat-button
+        [mat-menu-trigger-for]="reportMenu"
+        color="accent"
+      >
+        Reportes
+      </button>
+      <mat-menu #reportMenu="matMenu" xPosition="after">
+        <a class="menu-item" mat-menu-item routerLink="/report/ratings">
+          Reporte de Reseñas
+        </a>
+        <a class="menu-item" mat-menu-item routerLink="/report/books">
+          Reporte de Libros
+        </a>
+      </mat-menu>
       <button
         *ngIf="user.role != 'admin'"
         class="menu-item nav-item"
