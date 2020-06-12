@@ -1,3 +1,4 @@
+import { GenericMultipleReportModel } from './models/report-generic-multiple.model';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -35,7 +36,7 @@ export class ReportService {
   }
 
   getMonthReport() {
-    return this.http.get<GenericReportModel[]>(
+    return this.http.get<GenericMultipleReportModel[]>(
       `${this.baseUrl}/mostExchangesByMonth`
     );
   }
