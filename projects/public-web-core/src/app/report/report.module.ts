@@ -8,6 +8,9 @@ import { RatingReportComponent } from './rating-report/rating-report.component';
 import { PositionMatchPipe } from './rating-report/pipes/position-match.pipe';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BooksReportComponent } from './books-report/books-report.component';
+import { CategoryReportComponent } from './category-report/category-report.component';
+import { UserReportComponent } from './user-report/user-report.component';
+import { MonthReportComponent } from './month-report/month-report.component';
 
 @NgModule({
   imports: [
@@ -20,6 +23,9 @@ import { BooksReportComponent } from './books-report/books-report.component';
   declarations: [
     RatingReportComponent,
     BooksReportComponent,
+    CategoryReportComponent,
+    UserReportComponent,
+    MonthReportComponent,
     CapitalizePipe,
     PositionMatchPipe
   ]

@@ -1,6 +1,5 @@
 import { ReportService } from './../report.service';
 import { Component, OnInit } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-books-report',

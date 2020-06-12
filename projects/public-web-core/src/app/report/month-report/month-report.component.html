@@ -1,0 +1,21 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading">
+      <span>Reportes - Intercambio por meses</span>
+    </div>
+  </div>
+  <div class="graph-container">
+    <ngx-charts-heat-map
+      [scheme]="colorScheme"
+      [legend]="legend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxis]="xAxis"
+      [yAxis]="yAxis"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [results]="multi"
+    >
+    </ngx-charts-heat-map>
+  </div>
+</div>

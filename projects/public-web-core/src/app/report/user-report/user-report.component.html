@@ -1,0 +1,17 @@
+<div class="container-flex justify-content-center">
+  <div class="row no-gutters">
+    <div class="col heading">
+      <span>Reportes - Usuarios con mayores intercambios</span>
+    </div>
+  </div>
+  <div class="row no-gutters graph-container">
+    <div class="col">
+      <ngx-charts-number-card
+        [scheme]="colorScheme"
+        [results]="single"
+        [cardColor]="cardColor"
+      >
+      </ngx-charts-number-card>
+    </div>
+  </div>
+</div>

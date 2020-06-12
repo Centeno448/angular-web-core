@@ -1,6 +1,8 @@
 <div class="container-flex">
   <div class="row no-gutters">
-    <div class="col heading"><span>Reportes - Reseñas</span></div>
+    <div class="col heading">
+      <span>Reportes - Usuarios con mejor promedio de reseñas</span>
+    </div>
   </div>
   <div class="row no-gutters" *ngFor="let chunk of chunkedData">
     <div class="col card-container" *ngFor="let user of chunk">

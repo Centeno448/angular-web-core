@@ -2,7 +2,7 @@ import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReportRatingModel } from './models/report-rating.model';
-import { ReportBookModel } from './models/report-book.model';
+import { GenericReportModel } from './models/report-generic.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,26 @@ export class ReportService {
   }
 
   getBookReport() {
-    return this.http.get<ReportBookModel[]>(
+    return this.http.get<GenericReportModel[]>(
       `${this.baseUrl}/mostExchangedBooks`
+    );
+  }
+
+  getCategoryReport() {
+    return this.http.get<GenericReportModel[]>(
+      `${this.baseUrl}/mostExchangedCategories`
+    );
+  }
+
+  getUserReport() {
+    return this.http.get<GenericReportModel[]>(
+      `${this.baseUrl}/mostExchangesByUsers`
+    );
+  }
+
+  getMonthReport() {
+    return this.http.get<GenericReportModel[]>(
+      `${this.baseUrl}/mostExchangesByMonth`
     );
   }
 }

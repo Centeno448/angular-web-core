@@ -1,0 +1,22 @@
+<div class="container-flex">
+  <div class="row no-gutters">
+    <div class="col heading">
+      <span>Reportes - Categorías mas intercambiadas</span>
+    </div>
+  </div>
+  <div class="graph-container">
+    <ngx-charts-bar-horizontal
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+    >
+    </ngx-charts-bar-horizontal>
+  </div>
+</div>
