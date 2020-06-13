@@ -49,7 +49,8 @@ export class AdminBookExchangeAddComponent implements OnInit, OnDestroy {
       toBook: new FormControl('', [Validators.required]),
       fromBook: new FormControl('', [Validators.required]),
       fromUser: new FormControl('', [Validators.required]),
-      exchangeDate: new FormControl('', [Validators.required])
+      exchangeDate: new FormControl('', [Validators.required]),
+      failed: new FormControl('')
     });
   }
 
@@ -87,7 +88,8 @@ export class AdminBookExchangeAddComponent implements OnInit, OnDestroy {
       this.exchangeForm.get('fromUser').value,
       this.exchangeForm.get('toBook').value,
       this.exchangeForm.get('fromBook').value,
-      new Date(this.exchangeForm.get('exchangeDate').value._d)
+      new Date(this.exchangeForm.get('exchangeDate').value._d),
+      this.exchangeForm.get('failed').value
     );
 
     this.store.dispatch(new ExchangeActions.AddExchange(exchange));

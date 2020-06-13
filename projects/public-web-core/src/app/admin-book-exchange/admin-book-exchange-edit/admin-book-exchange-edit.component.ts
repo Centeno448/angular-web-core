@@ -75,7 +75,8 @@ export class AdminBookExchangeEditComponent implements OnInit, OnDestroy {
     this.exchangeForm.patchValue({
       toUser: toUser.id,
       fromUser: fromUser.id,
-      exchangeDate: exchange.exchangeDate
+      exchangeDate: exchange.exchangeDate,
+      failed: exchange.failed
     });
 
     this.loadToBooks();
@@ -88,7 +89,8 @@ export class AdminBookExchangeEditComponent implements OnInit, OnDestroy {
       toBook: new FormControl('', [Validators.required]),
       fromBook: new FormControl('', [Validators.required]),
       fromUser: new FormControl('', [Validators.required]),
-      exchangeDate: new FormControl('', [Validators.required])
+      exchangeDate: new FormControl('', [Validators.required]),
+      failed: new FormControl('')
     });
   }
 
@@ -129,7 +131,8 @@ export class AdminBookExchangeEditComponent implements OnInit, OnDestroy {
         this.exchangeForm.get('fromUser').value,
         this.exchangeForm.get('toBook').value,
         this.exchangeForm.get('fromBook').value,
-        new Date(this.exchangeForm.get('exchangeDate').value._d)
+        new Date(this.exchangeForm.get('exchangeDate').value._d),
+        this.exchangeForm.get('failed').value
       );
     } else {
       exchange = new BookExchange(
@@ -138,7 +141,8 @@ export class AdminBookExchangeEditComponent implements OnInit, OnDestroy {
         this.exchangeForm.get('fromUser').value,
         this.exchangeForm.get('toBook').value,
         this.exchangeForm.get('fromBook').value,
-        new Date(this.exchangeForm.get('exchangeDate').value)
+        new Date(this.exchangeForm.get('exchangeDate').value),
+        this.exchangeForm.get('failed').value
       );
     }
 

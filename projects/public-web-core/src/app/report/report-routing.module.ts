@@ -6,6 +6,7 @@ import { RatingReportComponent } from './rating-report/rating-report.component';
 import { BooksReportComponent } from './books-report/books-report.component';
 import { CategoryReportComponent } from './category-report/category-report.component';
 import { MonthReportComponent } from './month-report/month-report.component';
+import { FailedExchangeComponent } from './failed-exchange/failed-exchange.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'report/months',
     component: MonthReportComponent,
+    canActivate: [AdminAuthGuard]
+  },
+  {
+    path: 'report/failed-exchange',
+    component: FailedExchangeComponent,
     canActivate: [AdminAuthGuard]
   }
 ];

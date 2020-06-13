@@ -5,6 +5,7 @@ export class BookExchange {
     public fromUser: string,
     public toBook: string,
     public fromBook: string,
-    public exchangeDate: Date
+    public exchangeDate: Date,
+    public failed: boolean
   ) {}
 }

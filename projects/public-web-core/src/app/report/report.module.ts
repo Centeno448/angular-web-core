@@ -11,6 +11,7 @@ import { BooksReportComponent } from './books-report/books-report.component';
 import { CategoryReportComponent } from './category-report/category-report.component';
 import { UserReportComponent } from './user-report/user-report.component';
 import { MonthReportComponent } from './month-report/month-report.component';
+import { FailedExchangeComponent } from './failed-exchange/failed-exchange.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { MonthReportComponent } from './month-report/month-report.component';
     CategoryReportComponent,
     UserReportComponent,
     MonthReportComponent,
+    FailedExchangeComponent,
     CapitalizePipe,
     PositionMatchPipe
   ]

@@ -40,4 +40,10 @@ export class ReportService {
       `${this.baseUrl}/mostExchangesByMonth`
     );
   }
+
+  getFailedReport() {
+    return this.http.get<GenericMultipleReportModel[]>(
+      `${this.baseUrl}/failedExchanges`
+    );
+  }
 }

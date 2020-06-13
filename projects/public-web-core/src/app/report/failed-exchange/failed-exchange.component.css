@@ -1,0 +1,15 @@
+.container-flex {
+  margin-top: 10px;
+  align-content: center;
+}
+
+.heading {
+  text-align: center;
+  font-size: xx-large;
+}
+
+.graph-container {
+  margin-top: 15px;
+  width: auto;
+  height: 500px;
+}

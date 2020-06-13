@@ -52,3 +52,7 @@ mat-option {
 mat-select {
   text-transform: capitalize;
 }
+
+.chk-box {
+  margin-left: 25px;
+}

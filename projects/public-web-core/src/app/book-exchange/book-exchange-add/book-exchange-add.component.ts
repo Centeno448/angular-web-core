@@ -74,7 +74,6 @@ export class BookExchangeAddComponent implements OnInit {
 
     const fromBook = this.firstFormGroup.get('book').value;
 
-    console.log(fromBook);
     var data = exchange.selectedOptions.selected[0]._value;
     var bookExchange = new BookExchange(
       null,
@@ -82,7 +81,8 @@ export class BookExchangeAddComponent implements OnInit {
       this.userId.toString(),
       data.bookId,
       fromBook,
-      new Date()
+      new Date(),
+      false
     );
 
     this.store.dispatch(new ExchangeActions.AddExchange(bookExchange));

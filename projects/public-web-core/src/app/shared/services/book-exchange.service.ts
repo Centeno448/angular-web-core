@@ -45,7 +45,8 @@ export class ExchangeService {
         exchange.exchangeDate.getDate() < 10
           ? '0' + exchange.exchangeDate.getDate()
           : exchange.exchangeDate.getDate()
-      }`
+      }`,
+      failed: exchange.failed
     });
   }
 
@@ -63,7 +64,8 @@ export class ExchangeService {
         exchange.exchangeDate.getDate() < 10
           ? '0' + exchange.exchangeDate.getDate()
           : exchange.exchangeDate.getDate()
-      }`
+      }`,
+      failed: exchange.failed
     });
   }
 }
