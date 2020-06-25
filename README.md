@@ -1,6 +1,6 @@
 # angular-web-core
 
-Proyecto Front-End de Angular para video de Ingeniería Web.
+Proyecto Front-End de Angular para proyecto de Ingeniería Web.
 
 ## Requerimientos
 - [Node.js](https://nodejs.org/en/).
