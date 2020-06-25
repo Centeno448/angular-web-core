@@ -1,27 +1,17 @@
-# WebCore
+# angular-web-core
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+Proyecto Front-End de Angular para video de Ingeniería Web.
 
-## Development server
+## Requerimientos
+- [Node.js](https://nodejs.org/en/).
+- [Angular CLI](https://cli.angular.io/).
+- [Base de datos Postgres](https://www.postgresql.org/) y un [DBMS](https://www.pgadmin.org/) (en el archivo postgres.sql se encuentra la estructura de la base).
+- Datos ingresados a la base.
+- [Proyecto Back-End de Node.js](https://github.com/Centeno448/node-web-core). El proyecto de Node.js **debe** estar en ejecución mientras se ejecute el proyecto de Angular.
+- Ganas de leer los mensajes de error que inevitablemente saldran al tratar de instalar.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Pasos
+1. Clonear el repositorio.
+2. Desde la consola, navegar a la ubicacion del proyecto.
+3. Ejecutar el comando `npm install` para instalar todas las dependencias del proyecto
+4. Ejecutar el comando `ng serve -o` para ejecutar el proyecto. (si falla, usar `npm start`)
