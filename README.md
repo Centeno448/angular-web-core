@@ -2,6 +2,10 @@
 
 Proyecto Front-End de Angular para proyecto de Ingeniería Web.
 
+## Funcionalidad
+Permite registrar usuarios, y libros para realizar intercambios entre usuarios.
+Se debe agregar un usuario admin a la base de datos mediante script (archivo admin.sql) para acceder a los reportes de administrador.
+
 ## Requerimientos
 - [Node.js](https://nodejs.org/en/).
 - [Angular CLI](https://cli.angular.io/).
